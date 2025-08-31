@@ -1,5 +1,5 @@
 # Arphros Framework
-A rhythm game framework using a level-based system, not charting or whatever you guys called it.
+A music game framework using a level-based system, not charting or whatever you guys called it.
 
 ## What is this?
 
