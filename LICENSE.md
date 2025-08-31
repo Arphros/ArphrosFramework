@@ -1,14 +1,14 @@
 Business Source License 1.1
 
 Licensor: Rhitomaic  
-Licensed Work: Arphros  
+Licensed Work: Arphros Framework
 License Version: 1.1  
 License Date: June 9th, 2025
 
 ---
 
 ### Use Limitation  
-This license permits you to **view, clone, and contribute** to the source code of **Arphros**, but **not** to use it to create or distribute derivative works, games, or modified versions **outside** of the official repository, unless you have received **prior written permission** from the original developer(s).
+This license permits you to **view, clone, and contribute** to the source code of **Arphros Framework**, but **not** to use it to create or distribute derivative works, games, or modified versions **outside** of the official repository, unless you have received **prior written permission** from the original developer(s).
 
 This restriction includes:
 - Forks published under a different name
@@ -20,7 +20,7 @@ This restriction includes:
 ### Change Date or Condition  
 This code will automatically be relicensed under the **MIT License** (or another OSI-approved license) **if either** of the following occurs:
 
-1. Development of Arphros has been **inactive for 2 consecutive years**,  
+1. Development of Arphros or **Arphros Framework** has been **inactive for 2 consecutive years**,  
 **or**  
 2. The total cumulative **revenue from Arphros exceeds $1000 USD**, and it continues to receive development or support for at least **6 months after** reaching this threshold.
 
