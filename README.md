@@ -1,9 +1,9 @@
-# Arphros
-A rhythm game using a level-based system, not charting or whatever you guys called it.
+# Arphros Framework
+A rhythm game framework using a level-based system, not charting or whatever you guys called it.
 
 ## What is this?
 
-This is a revamped version of Arphros, this repository acts as a placeholder for all the prototyping and stuff. You can see the progress as the development progresses as well, this project is different from any of the previous Arphros as the code is remade (again, for the 4th time) from scratch.
+This is a base version of Arphros, this repository acts as a placeholder for all the prototyping and stuff. You can see the progress as the development progresses as well, this project is different from any of the previous Arphros as the code is remade (again, for the 4th time) from scratch.
 
 You won't see much even if you cloned it, we'll be building this out when we have a solid idea of what the revamp will be. But as for now, thank you for visiting the repository!
 
