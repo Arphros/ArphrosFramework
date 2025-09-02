@@ -4,7 +4,7 @@ using UnityEngine;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Arphros
+namespace ArphrosFramework
 {
     public static class ArphrosSerializer
     {

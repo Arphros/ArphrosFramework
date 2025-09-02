@@ -9,7 +9,7 @@ using UnityEditor;
 using System.IO;
 #endif
 
-namespace Arphros {
+namespace ArphrosFramework {
     public class PathSequence : MonoBehaviour {
         public List<ModifyPoint> points = new List<ModifyPoint>();
 

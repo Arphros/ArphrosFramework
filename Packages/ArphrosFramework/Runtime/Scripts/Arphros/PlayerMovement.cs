@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
-namespace Arphros {
+namespace ArphrosFramework {
     /// <summary>
     /// The core class that moves the player and handles all events and inputs related to the cube.
     /// </summary>

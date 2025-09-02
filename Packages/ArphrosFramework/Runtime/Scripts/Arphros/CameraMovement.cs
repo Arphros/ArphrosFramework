@@ -1,7 +1,7 @@
-﻿using Arphros.Custom;
+﻿using ArphrosFramework.Custom;
 using UnityEngine;
 
-namespace Arphros {
+namespace ArphrosFramework {
     [ExecuteInEditMode]
     public class CameraMovement : CameraHost {
         public Camera mainCamera;

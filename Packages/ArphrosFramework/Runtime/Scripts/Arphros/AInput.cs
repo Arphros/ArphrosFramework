@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Arphros {
+namespace ArphrosFramework {
     /// <summary>
     /// A class that basically extends the basic old input system that Unity has
     /// </summary>

@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEditor;
 
-namespace Arphros {
+namespace ArphrosFramework {
     [CustomEditor(typeof(PathSequence))]
     public class PathSequenceEditor : Editor {
         public override void OnInspectorGUI() {

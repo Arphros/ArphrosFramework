@@ -1,11 +1,12 @@
 {
-    "name": "Arphros.Runtime",
+    "name": "ArphrosFramework.Editor",
     "rootNamespace": "",
     "references": [
-        "GUID:696a0953692949b40bec8730e64e1fdd",
-        "GUID:6055be8ebefd69e48b49212b09b47b2f"
+        "GUID:586e3ff6864bb024889ce1b52fe68da3"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

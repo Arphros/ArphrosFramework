@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Arphros
+namespace ArphrosFramework
 {
     public class CameraHost : MonoBehaviour
     {
