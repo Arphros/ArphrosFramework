@@ -77,7 +77,9 @@ namespace Arphros {
         }
 
         private void OnDrawGizmosSelected() {
-            GUIStyle style = new GUIStyle();
+            if (!enabled) return;
+
+            GUIStyle style = new();
             style.normal.textColor = Color.white;
             style.fontSize = 14;
             style.alignment = TextAnchor.MiddleCenter;

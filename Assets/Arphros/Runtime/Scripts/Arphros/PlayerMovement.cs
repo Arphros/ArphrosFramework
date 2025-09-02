@@ -11,8 +11,12 @@ namespace Arphros {
     public class PlayerMovement : MonoBehaviour {
         [Header("Pathing")]
         public PlayerMode mode = PlayerMode.Freeroam;
+
+        [ShowIf(nameof(mode), PlayerMode.Path)]
         public PathSequence sequence;
+        [ShowIf(nameof(mode), PlayerMode.Path)]
         public int pointIndex;
+        [ShowIf(nameof(mode), PlayerMode.Path)]
         public int judgedPointIndex;
 
         [Header("Properties")]
@@ -24,8 +28,11 @@ namespace Arphros {
         };
 
         [Header("Scoring")]
+        [ShowIf(nameof(mode), PlayerMode.Path)]
         public TMP_Text scoreText;
+        [ShowIf(nameof(mode), PlayerMode.Path)]
         public TMP_Text judgementText;
+        [ShowIf(nameof(mode), PlayerMode.Path)]
         public float score = 0;
         float shownScore;
 
@@ -33,8 +40,11 @@ namespace Arphros {
         public AudioSource source;
 
         [Header("Timing")]
+        [ShowIf(nameof(mode), PlayerMode.Path)]
         public float perfectThreshold = 0.05f;
+        [ShowIf(nameof(mode), PlayerMode.Path)]
         public float goodThreshold = 0.1f;
+        [ShowIf(nameof(mode), PlayerMode.Path)]
         public float okayThreshold = 0.2f;
 
         [Header("States")]
@@ -46,8 +56,11 @@ namespace Arphros {
         public Transform tailParent; 
         
         [Header("Animation Settings")]
+        [ShowIf(nameof(mode), PlayerMode.Path)]
         public float colorFadeSpeed = 5f;
+        [ShowIf(nameof(mode), PlayerMode.Path)]
         public float scaleSpeed = 5f;
+        [ShowIf(nameof(mode), PlayerMode.Path)]
         public float scoreSpeed = 20f;
 
         // Cache

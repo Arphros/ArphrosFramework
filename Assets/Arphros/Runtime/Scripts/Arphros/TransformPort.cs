@@ -42,10 +42,8 @@ namespace Arphros.Custom {
     }
 
     [Serializable]
-    public class Vector3UnityEvent : UnityEvent<Vector3> {
-    }
+    public class Vector3UnityEvent : UnityEvent<Vector3> {}
 
     [Serializable]
-    public class QuaternionUnityEvent : UnityEvent<Quaternion> {
-    }
+    public class QuaternionUnityEvent : UnityEvent<Quaternion> {}
 }
