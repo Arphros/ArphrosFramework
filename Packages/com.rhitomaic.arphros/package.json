@@ -1,7 +1,7 @@
 {
-  "name": "com.arphros.framework",
+  "name": "com.rhitomaic.arphros",
   "version": "1.0.0",
-  "unity": "6000.0",
+  "unity": "2024.0",
   "displayName": "Arphros Framework",
   "description": "A base framework used by the game Arphros",
   "keywords": [
@@ -18,6 +18,13 @@
     "com.unity.ide.visualstudio": "2.0.23",
     "com.unity.nuget.newtonsoft-json": "3.2.1"
   },
+  "samples": [
+    {
+      "displayName": "Basic Usage",
+      "description": "Contains basic usage for the framework",
+      "path": "Samples/Basic"
+    }
+  ],
   "author": {
     "name": "Rhitomaic",
     "email": "rhitomaic@gmail.com",

@@ -64,13 +64,18 @@ namespace ArphrosFramework {
         public float scoreSpeed = 20f;
 
         // Cache
-        private MeshRenderer meshRenderer;
+        private MeshRenderer _meshRenderer;
+        private BoxCollider _boxCollider;
+        private Rigidbody _rigidbody;
         private float currentTime;
 
         void Start() {
             Application.targetFrameRate = (int)Screen.currentResolution.refreshRateRatio.value;
             AInput.Initialize();
-            meshRenderer = GetComponent<MeshRenderer>();
+
+            _meshRenderer = GetComponent<MeshRenderer>();
+            _rigidbody = GetComponent<Rigidbody>();
+            _boxCollider = GetComponent<BoxCollider>();
         }
 
         void Update() {
@@ -288,7 +293,7 @@ namespace ArphrosFramework {
             var obj = GameObject.CreatePrimitive(PrimitiveType.Cube);
             if (tailParent)
                 obj.transform.parent = tailParent;
-            obj.GetComponent<MeshRenderer>().sharedMaterial = meshRenderer.sharedMaterial;
+            obj.GetComponent<MeshRenderer>().sharedMaterial = _meshRenderer.sharedMaterial;
             obj.GetComponent<BoxCollider>().isTrigger = true;
             obj.transform.position = transform.position;
             obj.transform.rotation = transform.rotation;
