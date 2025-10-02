@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace ArphrosFramework {
     /// <summary>
@@ -19,6 +21,18 @@ namespace ArphrosFramework {
 
         public static void Initialize() {
 
+        }
+
+        public static bool IsMouseAndTouchOverUI(int keyInt) {
+            if (keyInt is >= 330 or <= 322) return false;
+
+            var touches = Input.touches;
+            return touches.Any(touch => EventSystem.current.IsPointerOverGameObject(touch.fingerId)) || EventSystem.current.IsPointerOverGameObject();
+        }
+
+        public static bool IsMouseOverUI(int keyInt) {
+            if (keyInt is >= 330 or <= 322) return false;
+            return EventSystem.current.IsPointerOverGameObject();
         }
     }
 }

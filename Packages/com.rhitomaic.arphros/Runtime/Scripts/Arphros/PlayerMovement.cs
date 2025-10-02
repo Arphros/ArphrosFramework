@@ -64,10 +64,12 @@ namespace ArphrosFramework {
         public float scoreSpeed = 20f;
 
         // Cache
+        private GameObject _currentTail;
         private MeshRenderer _meshRenderer;
         private BoxCollider _boxCollider;
         private Rigidbody _rigidbody;
-        private float currentTime;
+        private bool _isGrounded;
+        private float _currentTime;
 
         void Start() {
             Application.targetFrameRate = (int)Screen.currentResolution.refreshRateRatio.value;
@@ -86,16 +88,40 @@ namespace ArphrosFramework {
             }
             else {
                 HandleRhythmMode();
+                AdjustRhythmInterface();
             }
-
-            AdjustInterface();
 
             if (Input.GetKeyDown(KeyCode.R)) {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
         }
 
-        public void AdjustInterface() {
+        #region Rhythm Mode
+        void HandleRhythmMode() {
+            if (isStarted) {
+                _currentTime += Time.deltaTime;
+
+                if (pointIndex < sequence.points.Count - 1) {
+                    sequence.points[pointIndex].Interpolate(
+                        transform,
+                        _currentTime - sequence.points[pointIndex].time,
+                        sequence.points[pointIndex + 1]
+                    );
+
+                    if (_currentTime >= sequence.points[pointIndex + 1].time) {
+                        pointIndex++;
+                    }
+                }
+                else {
+                    transform.localPosition = sequence.points[pointIndex].position + ((_currentTime - sequence.points[pointIndex].time) * transform.forward * speed);
+                    transform.localEulerAngles = sequence.points[pointIndex].eulerAngles;
+                }
+            }
+
+            JudgeInput();
+        }
+
+        public void AdjustRhythmInterface() {
             judgementText.color = Color.Lerp(
                 judgementText.color,
                 Color.white,
@@ -119,44 +145,10 @@ namespace ArphrosFramework {
             }
         }
 
-        void HandleFreeroam() {
-            EatInput();
-
-            if (isStarted) {
-                currentTime += Time.deltaTime;
-                InefficientTail();
-                transform.localPosition += speed * Time.deltaTime * transform.forward;
-            }
-        }
-
-        void HandleRhythmMode() {
-            if (isStarted) {
-                currentTime += Time.deltaTime;
-
-                if (pointIndex < sequence.points.Count - 1) {
-                    sequence.points[pointIndex].Interpolate(
-                        transform,
-                        currentTime - sequence.points[pointIndex].time,
-                        sequence.points[pointIndex + 1]
-                    );
-
-                    if (currentTime >= sequence.points[pointIndex + 1].time) {
-                        pointIndex++;
-                    }
-                }
-                else {
-                    transform.localPosition = sequence.points[pointIndex].position + ((currentTime - sequence.points[pointIndex].time) * transform.forward * speed);
-                    transform.localEulerAngles = sequence.points[pointIndex].eulerAngles;
-                }
-            }
-
-            JudgeInput();
-        }
-
         public void JudgeInput(bool eatAll = false) {
             // Step 1: Handle misses
             while (judgedPointIndex < sequence.points.Count &&
-                   currentTime > sequence.points[judgedPointIndex].time + okayThreshold) {
+                   _currentTime > sequence.points[judgedPointIndex].time + okayThreshold) {
                 Score("Miss", 0);
                 Debug.Log($"Missed! {sequence.points[judgedPointIndex].time:F3} (no input)");
                 judgedPointIndex++;
@@ -171,7 +163,7 @@ namespace ArphrosFramework {
 
                 inputQueue--;
 
-                float inputTiming = currentTime;
+                float inputTiming = _currentTime;
                 float pointTiming = sequence.points[judgedPointIndex].time;
                 float earlyDelta = pointTiming - inputTiming;
                 float delta = Mathf.Abs(inputTiming - pointTiming);
@@ -191,47 +183,20 @@ namespace ArphrosFramework {
             }
         }
 
-        private void StartGameplay() {
-            isStarted = true;
-            source.Play();
-            judgedPointIndex++;
-            inputQueue--;
-        }
-
         private string GetJudgement(float delta) {
             if (delta <= perfectThreshold) return "PERFECT";
             if (delta <= goodThreshold) return "GOOD";
             if (delta <= okayThreshold) return "OKAY";
             return null; // Too early or too late
         }
-
-        public void EatInput(bool eatAll = false) {
-            while (inputQueue > 0) {
-                if (isStarted) {
-                    rotationIndex = (rotationIndex + 1) % rotations.Length;
-                    transform.localEulerAngles = rotations[rotationIndex];
-                    RecordPoint();
-                }
-                else {
-                    RecordPoint();
-                    isStarted = true;
-                    source.Play();
-                }
-
-                inputQueue--;
-                if (!eatAll)
-                    break;
-            }
-        }
-
         public void Score(string result, float deviation) {
             judgementText.text = result;
             float mult = 1f;
-            switch (result) { 
+            switch (result) {
                 case "PERFECT":
                     mult = 1f;
-                    judgementText.color = Color.green; 
-                    break; 
+                    judgementText.color = Color.green;
+                    break;
                 case "GOOD":
                     mult = 0.6f;
                     judgementText.color = Color.yellow;
@@ -244,17 +209,63 @@ namespace ArphrosFramework {
                     break;
                 case "Miss":
                     mult = 0f;
-                    judgementText.color = Color.red; 
+                    judgementText.color = Color.red;
                     break;
             }
             score += (mult / (sequence.points.Count - 1)) * 1000000;
             judgementText.transform.localScale = Vector3.one * 1.2f;
         }
+        #endregion
 
-        public void RecordPoint() {
-            sequence.points.Add(new ModifyPoint(currentTime, transform.localPosition, transform.localEulerAngles));
+        private void StartGameplay() {
+            isStarted = true;
+            source.Play();
+            judgedPointIndex++;
+            inputQueue--;
         }
 
+        #region Freeroam
+        void HandleFreeroam() {
+            EatInput();
+
+            if (isStarted) {
+                _currentTime += Time.deltaTime;
+                float velocity = speed * Time.deltaTime;
+                transform.localPosition += velocity * transform.forward;
+
+                if (_currentTail) {
+                    _currentTail.transform.localPosition += velocity * transform.forward / 2;
+                    _currentTail.transform.localScale += new Vector3(0, 0, velocity);
+                }
+            }
+        }
+        public void EatInput(bool eatAll = false) {
+            while (inputQueue > 0) {
+                if (isStarted) {
+                    rotationIndex = (rotationIndex + 1) % rotations.Length;
+                    transform.localEulerAngles = rotations[rotationIndex];
+                    _currentTail = CreateTail();
+                    RecordPoint();
+                }
+                else {
+                    RecordPoint();
+                    isStarted = true;
+                    _currentTail = CreateTail();
+                    source.Play();
+                }
+
+                inputQueue--;
+                if (!eatAll)
+                    break;
+            }
+        }
+
+        public void RecordPoint() {
+            sequence.points.Add(new ModifyPoint(_currentTime, transform.localPosition, transform.localEulerAngles));
+        }
+        #endregion
+
+        #region Shared
         public void UpdateInputQueue() {
             foreach (var touch in Input.touches) {
                 if (touch.phase == TouchPhase.Began)
@@ -264,7 +275,7 @@ namespace ArphrosFramework {
 
             foreach (var key in AInput.playerTurn) {
                 if (Input.GetKeyDown(key))
-                    if (!IsMouseOverUI((int)key))
+                    if (!AInput.IsMouseOverUI((int)key))
                         inputQueue++;
             }
         }
@@ -274,22 +285,10 @@ namespace ArphrosFramework {
 
             return AInput.playerTurn.Count(key =>
                 Input.GetKeyDown(key) &&
-                !IsMouseAndTouchOverUI((int)key));
+                !AInput.IsMouseAndTouchOverUI((int)key));
         }
 
-        private static bool IsMouseAndTouchOverUI(int keyInt) {
-            if (keyInt is >= 330 or <= 322) return false;
-
-            var touches = Input.touches;
-            return touches.Any(touch => EventSystem.current.IsPointerOverGameObject(touch.fingerId)) || EventSystem.current.IsPointerOverGameObject();
-        }
-
-        private static bool IsMouseOverUI(int keyInt) {
-            if (keyInt is >= 330 or <= 322) return false;
-            return EventSystem.current.IsPointerOverGameObject();
-        }
-
-        public void InefficientTail() {
+        public GameObject CreateTail() {
             var obj = GameObject.CreatePrimitive(PrimitiveType.Cube);
             if (tailParent)
                 obj.transform.parent = tailParent;
@@ -297,7 +296,10 @@ namespace ArphrosFramework {
             obj.GetComponent<BoxCollider>().isTrigger = true;
             obj.transform.position = transform.position;
             obj.transform.rotation = transform.rotation;
+            obj.transform.localScale = transform.localScale;
+            return obj;
         }
+        #endregion
     }
 
     public enum PlayerMode {

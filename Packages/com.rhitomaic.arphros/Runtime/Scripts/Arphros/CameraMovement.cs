@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace ArphrosFramework {
     [ExecuteInEditMode]
-    public class CameraMovement : CameraHost {
+    public class CameraMovement : CameraHost, IBackupable {
         public Camera mainCamera;
 
         [Header("Variables")]
@@ -120,6 +120,18 @@ namespace ArphrosFramework {
         }
 
         public override Transform GetTarget() => target;
+
+        public void Cache() {
+            throw new System.NotImplementedException();
+        }
+
+        public void Clear() {
+            throw new System.NotImplementedException();
+        }
+
+        public void Restore() {
+            throw new System.NotImplementedException();
+        }
     }
 
     [System.Serializable]
