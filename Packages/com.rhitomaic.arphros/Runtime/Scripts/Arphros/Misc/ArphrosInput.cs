@@ -6,8 +6,10 @@ using UnityEngine.EventSystems;
 namespace ArphrosFramework {
     /// <summary>
     /// A class that basically extends the basic old input system that Unity has
+    /// Plans:
+    /// - Add customizable array of inputs
     /// </summary>
-    public static class AInput {
+    public static class ArphrosInput {
         /// <summary>
         /// The keys that are used to control the player
         /// </summary>

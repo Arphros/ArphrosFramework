@@ -27,7 +27,7 @@ namespace Toolbox.Editor.Drawers
 
         protected override bool IsPropertyValid(MaterialProperty prop)
         {
-            return prop.type == MaterialProperty.PropType.Texture;
+            return prop.propertyType == UnityEngine.Rendering.ShaderPropertyType.Texture;
         }
     }
 }

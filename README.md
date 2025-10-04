@@ -15,7 +15,7 @@ We plan on adding a few modes for the new Arphros, the legacy mode basically bei
 
 ## Requirements
 
-- Unity 6000.0.50f1 (LTS)
+- Unity 6000.2.6f2 (Supported)
 - C# IDE/Code Editor (Visual Studio/Visual Studio Code + C# Extension/JetBrains Rider)
 
 ## License

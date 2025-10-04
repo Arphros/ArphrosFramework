@@ -7,27 +7,18 @@ namespace ArphrosFramework {
         public Camera mainCamera;
 
         [Header("Variables")]
-        // [AllowSavingState]
         public Vector3 pivotOffset = Vector3.zero;
-        // [AllowSavingState]
         public Vector3 targetRotation = new Vector3(45f, 60f, 0);
-        // [AllowSavingState]
         public float targetDistance = 20f;
-        // [AllowSavingState]
         [Range(0.001f, 10f)]
         public float smoothFactor = 1f;
 
-        // [AllowSavingState]
         public Vector3 localPositionOffset;
-        // [AllowSavingState]
         public Vector3 localEulerOffset;
 
         [Header("Shake")]
-        // [AllowSavingState]
         public ShakeCameraType shakeType = ShakeCameraType.Timed;
-        // [AllowSavingState]
         public float shakeDuration;
-        // [AllowSavingState]
         public float shakeAmount = 0f;
 
         [Header("Compatibility")]
@@ -38,6 +29,8 @@ namespace ArphrosFramework {
         public bool simulateInEditor = true;
 
         public TransformPort cameraTransform;
+        private CameraMovementParams backupParams;
+        private CameraValues backupValues;
 
         private void Start() {
             if (!mainCamera)
@@ -122,15 +115,57 @@ namespace ArphrosFramework {
         public override Transform GetTarget() => target;
 
         public void Cache() {
-            throw new System.NotImplementedException();
+            backupValues = oldValues;
+            backupParams = new CameraMovementParams() {
+                pivotOffset = pivotOffset,
+                targetRotation = targetRotation,
+                targetDistance = targetDistance,
+                smoothFactor = smoothFactor,
+                localPositionOffset = localPositionOffset,
+                localEulerOffset = localEulerOffset,
+                shakeType = shakeType,
+                shakeDuration = shakeDuration,
+                shakeAmount = shakeAmount,
+                oldSystemActive = oldSystemActive
+            };
         }
 
         public void Clear() {
-            throw new System.NotImplementedException();
+            backupValues = null;
+            backupParams = null;
         }
 
         public void Restore() {
-            throw new System.NotImplementedException();
+            if (backupParams == null)
+                return;
+
+            pivotOffset = backupParams.pivotOffset;
+            targetRotation = backupParams.targetRotation;
+            targetDistance = backupParams.targetDistance;
+            smoothFactor = backupParams.smoothFactor;
+            localPositionOffset = backupParams.localPositionOffset;
+            localEulerOffset = backupParams.localEulerOffset;
+            shakeType = backupParams.shakeType;
+            shakeDuration = backupParams.shakeDuration;
+            shakeAmount = backupParams.shakeAmount;
+            oldSystemActive = backupParams.oldSystemActive;
+
+            if (backupValues != null) {
+                oldValues = backupValues;
+            }
+        }
+
+        public record CameraMovementParams {
+            public Vector3 pivotOffset;
+            public Vector3 targetRotation;
+            public float targetDistance;
+            public float smoothFactor;
+            public Vector3 localPositionOffset;
+            public Vector3 localEulerOffset;
+            public ShakeCameraType shakeType;
+            public float shakeDuration;
+            public float shakeAmount;
+            public bool oldSystemActive;
         }
     }
 
