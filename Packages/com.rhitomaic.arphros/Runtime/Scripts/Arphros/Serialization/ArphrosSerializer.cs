@@ -4,10 +4,8 @@ using UnityEngine;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace ArphrosFramework
-{
-    public static class ArphrosSerializer
-    {
+namespace ArphrosFramework {
+    public static class ArphrosSerializer {
         private static readonly List<JsonConverter> converters = new()
         {
             new Vector2Converter(),
@@ -16,15 +14,13 @@ namespace ArphrosFramework
             new ColorConverter(),
             new QuaternionConverter(),
         };
-        private static JsonSerializerSettings Settings => new() {Converters = converters, MissingMemberHandling = MissingMemberHandling.Ignore};
-        public static string Serialize(object obj, bool pretty = false)
-        {
+        private static JsonSerializerSettings Settings => new() { Converters = converters, MissingMemberHandling = MissingMemberHandling.Ignore };
+        public static string Serialize(object obj, bool pretty = false) {
             var settings = new JsonSerializerSettings(Settings) { Formatting = pretty ? Formatting.Indented : Formatting.None };
             return JsonConvert.SerializeObject(obj, settings);
         }
-        
-        public static string Serialize(object obj, Formatting formatting)
-        {
+
+        public static string Serialize(object obj, Formatting formatting) {
             var settings = new JsonSerializerSettings(Settings) { Formatting = formatting, DefaultValueHandling = DefaultValueHandling.Ignore };
             return JsonConvert.SerializeObject(obj, settings);
         }
@@ -32,10 +28,8 @@ namespace ArphrosFramework
         public static T Deserialize<T>(string json) =>
             JsonConvert.DeserializeObject<T>(json);
 
-        private class Vector2Converter : JsonConverter<Vector2>
-        {
-            public override void WriteJson(JsonWriter writer, Vector2 value, JsonSerializer serializer)
-            {
+        private class Vector2Converter : JsonConverter<Vector2> {
+            public override void WriteJson(JsonWriter writer, Vector2 value, JsonSerializer serializer) {
                 var jo = new JObject
                 {
                     { "x", value.x },
@@ -45,8 +39,7 @@ namespace ArphrosFramework
             }
 
             public override Vector2 ReadJson(JsonReader reader, Type objectType, Vector2 existingValue, bool hasExistingValue,
-                JsonSerializer serializer)
-            {
+                JsonSerializer serializer) {
                 var jo = JObject.Load(reader);
                 var x = jo["x"]?.Value<float>() ?? 0f;
                 var y = jo["y"]?.Value<float>() ?? 0f;
@@ -54,10 +47,8 @@ namespace ArphrosFramework
             }
         }
 
-        private class Vector3Converter : JsonConverter<Vector3>
-        {
-            public override void WriteJson(JsonWriter writer, Vector3 value, JsonSerializer serializer)
-            {
+        private class Vector3Converter : JsonConverter<Vector3> {
+            public override void WriteJson(JsonWriter writer, Vector3 value, JsonSerializer serializer) {
                 var jo = new JObject
                 {
                     { "x", value.x },
@@ -68,8 +59,7 @@ namespace ArphrosFramework
             }
 
             public override Vector3 ReadJson(JsonReader reader, Type objectType, Vector3 existingValue, bool hasExistingValue,
-                JsonSerializer serializer)
-            {
+                JsonSerializer serializer) {
                 var jo = JObject.Load(reader);
                 var x = jo["x"]?.Value<float>() ?? 0f;
                 var y = jo["y"]?.Value<float>() ?? 0f;
@@ -78,10 +68,8 @@ namespace ArphrosFramework
             }
         }
 
-        private class Vector4Converter : JsonConverter<Vector4>
-        {
-            public override void WriteJson(JsonWriter writer, Vector4 value, JsonSerializer serializer)
-            {
+        private class Vector4Converter : JsonConverter<Vector4> {
+            public override void WriteJson(JsonWriter writer, Vector4 value, JsonSerializer serializer) {
                 var jo = new JObject
                 {
                     { "x", value.x },
@@ -92,8 +80,7 @@ namespace ArphrosFramework
                 jo.WriteTo(writer);
             }
 
-            public override Vector4 ReadJson(JsonReader reader, Type objectType, Vector4 existingValue, bool hasExistingValue, JsonSerializer serializer)
-            {
+            public override Vector4 ReadJson(JsonReader reader, Type objectType, Vector4 existingValue, bool hasExistingValue, JsonSerializer serializer) {
                 var jo = JObject.Load(reader);
                 var x = jo["x"]?.Value<float>() ?? 0f;
                 var y = jo["y"]?.Value<float>() ?? 0f;
@@ -103,10 +90,8 @@ namespace ArphrosFramework
             }
         }
 
-        private class QuaternionConverter : JsonConverter<Quaternion>
-        {
-            public override void WriteJson(JsonWriter writer, Quaternion value, JsonSerializer serializer)
-            {
+        private class QuaternionConverter : JsonConverter<Quaternion> {
+            public override void WriteJson(JsonWriter writer, Quaternion value, JsonSerializer serializer) {
                 var jo = new JObject
                 {
                     { "x", value.x },
@@ -117,8 +102,7 @@ namespace ArphrosFramework
                 jo.WriteTo(writer);
             }
 
-            public override Quaternion ReadJson(JsonReader reader, Type objectType, Quaternion existingValue, bool hasExistingValue, JsonSerializer serializer)
-            {
+            public override Quaternion ReadJson(JsonReader reader, Type objectType, Quaternion existingValue, bool hasExistingValue, JsonSerializer serializer) {
                 var jo = JObject.Load(reader);
                 var x = jo["x"]?.Value<float>() ?? 0f;
                 var y = jo["y"]?.Value<float>() ?? 0f;
@@ -128,10 +112,8 @@ namespace ArphrosFramework
             }
         }
 
-        private class ColorConverter : JsonConverter<Color>
-        {
-            public override void WriteJson(JsonWriter writer, Color value, JsonSerializer serializer)
-            {
+        private class ColorConverter : JsonConverter<Color> {
+            public override void WriteJson(JsonWriter writer, Color value, JsonSerializer serializer) {
                 var jo = new JObject
                 {
                     { "r", value.r },
@@ -142,8 +124,7 @@ namespace ArphrosFramework
                 jo.WriteTo(writer);
             }
 
-            public override Color ReadJson(JsonReader reader, Type objectType, Color existingValue, bool hasExistingValue, JsonSerializer serializer)
-            {
+            public override Color ReadJson(JsonReader reader, Type objectType, Color existingValue, bool hasExistingValue, JsonSerializer serializer) {
                 var jo = JObject.Load(reader);
                 var r = jo["r"]?.Value<float>() ?? 0f;
                 var g = jo["g"]?.Value<float>() ?? 0f;
@@ -152,11 +133,9 @@ namespace ArphrosFramework
                 return new Color(r, g, b, a);
             }
         }
-        
-        /*private class ObjectInfoConverter : JsonConverter<ObjectInfo>
-        {
-            public override void WriteJson(JsonWriter writer, ObjectInfo value, JsonSerializer serializer)
-            {
+
+        private class ObjectInfoConverter : JsonConverter<ObjectInfo> {
+            public override void WriteJson(JsonWriter writer, ObjectInfo value, JsonSerializer serializer) {
                 var jo = new JObject
                 {
                     { "id", value.instanceId },
@@ -165,8 +144,7 @@ namespace ArphrosFramework
                 jo.WriteTo(writer);
             }
 
-            public override ObjectInfo ReadJson(JsonReader reader, Type objectType, ObjectInfo existingValue, bool hasExistingValue, JsonSerializer serializer)
-            {
+            public override ObjectInfo ReadJson(JsonReader reader, Type objectType, ObjectInfo existingValue, bool hasExistingValue, JsonSerializer serializer) {
                 var jo = JObject.Load(reader);
 
                 var id = jo["id"]?.Value<int>() ?? 0;
@@ -178,11 +156,9 @@ namespace ArphrosFramework
                 return obj;
             }
         }
-        
-        private class ComponentConverter : JsonConverter<Component>
-        {
-            public override void WriteJson(JsonWriter writer, Component value, JsonSerializer serializer)
-            {
+
+        private class ComponentConverter : JsonConverter<Component> {
+            public override void WriteJson(JsonWriter writer, Component value, JsonSerializer serializer) {
                 var info = value.GetInfo();
                 var jo = new JObject
                 {
@@ -192,8 +168,7 @@ namespace ArphrosFramework
                 jo.WriteTo(writer);
             }
 
-            public override Component ReadJson(JsonReader reader, Type objectType, Component existingValue, bool hasExistingValue, JsonSerializer serializer)
-            {
+            public override Component ReadJson(JsonReader reader, Type objectType, Component existingValue, bool hasExistingValue, JsonSerializer serializer) {
                 var jo = JObject.Load(reader);
 
                 var id = jo["id"]?.Value<int>() ?? 0;
@@ -203,10 +178,8 @@ namespace ArphrosFramework
                 return !obj ? null : obj.GetComponent(type);
             }
         }
-        private class GameObjectConverter : JsonConverter<GameObject>
-        {
-            public override void WriteJson(JsonWriter writer, GameObject value, JsonSerializer serializer)
-            {
+        private class GameObjectConverter : JsonConverter<GameObject> {
+            public override void WriteJson(JsonWriter writer, GameObject value, JsonSerializer serializer) {
                 var info = value.GetInfo();
                 var jo = new JObject
                 {
@@ -215,8 +188,7 @@ namespace ArphrosFramework
                 jo.WriteTo(writer);
             }
 
-            public override GameObject ReadJson(JsonReader reader, Type objectType, GameObject existingValue, bool hasExistingValue, JsonSerializer serializer)
-            {
+            public override GameObject ReadJson(JsonReader reader, Type objectType, GameObject existingValue, bool hasExistingValue, JsonSerializer serializer) {
                 var jo = JObject.Load(reader);
 
                 var id = jo["id"]?.Value<int>() ?? 0;
@@ -224,6 +196,6 @@ namespace ArphrosFramework
                 var obj = LevelManager.GetObject(id);
                 return !obj ? null : obj.gameObject;
             }
-        }*/
+        }
     }
 }

@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 
 namespace ArphrosFramework {
+    /// <summary>
+    /// An unreliable way to test basic features.
+    /// </summary>
     public class RuntimeUnrecommendedTest : MonoBehaviour {
         public string objPath;
         public Material material;
@@ -9,6 +12,9 @@ namespace ArphrosFramework {
             ImportObject();
         }
 
+        /// <summary>
+        /// Testing .obj importing capabilities i guess lol
+        /// </summary>
         public void ImportObject() {
             var mesh = ObjImporter.ImportFile(objPath);
 

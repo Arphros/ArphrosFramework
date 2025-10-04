@@ -11,11 +11,11 @@ using System.IO;
 
 namespace ArphrosFramework {
     public class PathSequence : MonoBehaviour {
-        public List<ModifyPoint> points = new List<ModifyPoint>();
+        public List<ModifyPoint> points = new();
 
         [Header("Runtime Gizmos")]
         public GameObject gizmoPrefab; // Assign your cube+TMP prefab
-        private List<GameObject> runtimeGizmos = new List<GameObject>();
+        private List<GameObject> runtimeGizmos = new();
         private Camera mainCamera;
 
         private void Start() {

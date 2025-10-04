@@ -273,7 +273,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: ArphrosFramework.Runtime::ArphrosFramework.PlayerMovement
   sequence: {fileID: 531474479}
   speed: 15
-  rotationIndex: 0
+  rotationIndex: 1
   rotations:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 90, z: 0}

@@ -52,7 +52,8 @@ namespace ArphrosFramework {
 
             if (Application.isPlaying) {
                 Process(false);
-            } else {
+            }
+            else {
                 if (simulateInEditor)
                     Process(true);
             }
@@ -117,6 +118,7 @@ namespace ArphrosFramework {
         public void Cache() {
             backupValues = oldValues;
             backupParams = new CameraMovementParams() {
+                target = target,
                 pivotOffset = pivotOffset,
                 targetRotation = targetRotation,
                 targetDistance = targetDistance,
@@ -139,6 +141,7 @@ namespace ArphrosFramework {
             if (backupParams == null)
                 return;
 
+            target = backupParams.target;
             pivotOffset = backupParams.pivotOffset;
             targetRotation = backupParams.targetRotation;
             targetDistance = backupParams.targetDistance;
@@ -156,6 +159,7 @@ namespace ArphrosFramework {
         }
 
         public record CameraMovementParams {
+            public Transform target;
             public Vector3 pivotOffset;
             public Vector3 targetRotation;
             public float targetDistance;

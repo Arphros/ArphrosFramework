@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -28,7 +29,7 @@ namespace ArphrosFramework {
         public int inputQueue;
 
         [Header("Tail")]
-        public Transform tailParent; 
+        public Transform tailParent;
 
         // Cache
         private GameObject _currentTail;
@@ -37,6 +38,7 @@ namespace ArphrosFramework {
         private Rigidbody _rigidbody;
         private bool _isGrounded;
         private float _currentTime;
+        private List<MeshRenderer> _tails;
 
         void Start() {
             Application.targetFrameRate = (int)Screen.currentResolution.refreshRateRatio.value;
@@ -125,12 +127,19 @@ namespace ArphrosFramework {
             var obj = GameObject.CreatePrimitive(PrimitiveType.Cube);
             if (tailParent)
                 obj.transform.parent = tailParent;
-            obj.GetComponent<MeshRenderer>().sharedMaterial = _meshRenderer.sharedMaterial;
+            var rend = obj.GetComponent<MeshRenderer>();
+            rend.sharedMaterial = _meshRenderer.sharedMaterial;
             obj.GetComponent<BoxCollider>().isTrigger = true;
             obj.transform.position = transform.position;
             obj.transform.rotation = transform.rotation;
             obj.transform.localScale = transform.localScale;
+            _tails.Add(rend);
             return obj;
+        }
+
+        public void ChangeAllTailMaterials(Material to) {
+            foreach (var tail in _tails)
+                tail.sharedMaterial = to;
         }
         #endregion
     }
