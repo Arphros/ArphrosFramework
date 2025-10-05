@@ -125,8 +125,8 @@ namespace Cysharp.Threading.Tasks.Editor
             BuildRows(rootItem);
         }
 
-        [Obsolete]
-        protected override TreeViewItem BuildRoot() {
+        protected override TreeViewItem BuildRoot()
+        {
             var root = new TreeViewItem { depth = -1 };
 
             var children = new List<TreeViewItem>();

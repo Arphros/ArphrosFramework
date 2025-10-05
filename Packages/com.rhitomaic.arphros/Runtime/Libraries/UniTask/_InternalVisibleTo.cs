@@ -1,4 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("Libraries.Runtime")]
-[assembly: InternalsVisibleTo("Libraries.Editor")]
+[assembly: InternalsVisibleTo("UniTask.Linq")]
+[assembly: InternalsVisibleTo("UniTask.Addressables")]
+[assembly: InternalsVisibleTo("UniTask.DOTween")]
+[assembly: InternalsVisibleTo("UniTask.TextMeshPro")]
