@@ -11,6 +11,7 @@ using Cysharp.Threading.Tasks.Internal;
 using System.Text;
 using System.Text.RegularExpressions;
 
+#pragma warning disable CS0618 // Type or member is obsolete
 namespace Cysharp.Threading.Tasks.Editor
 {
     public class UniTaskTrackerViewItem : TreeViewItem
