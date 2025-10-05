@@ -14,15 +14,15 @@ namespace ArphrosFramework {
 
             movement = GetComponent<PlayerMovement>();
             movement.speed = obj.speed;
-            movement.rotations[0] = obj.direction1;
-            movement.rotations[1] = obj.direction2;
+            movement.turn1 = obj.direction1;
+            movement.turn2 = obj.direction2;
         }
 
         public override PlayerData OnSerialize() {
             var data = new PlayerData();
             movement = GetComponent<PlayerMovement>();
-            data.direction1 = movement.rotations[0];
-            data.direction2 = movement.rotations[1];
+            data.direction1 = movement.turn1;
+            data.direction2 = movement.turn2;
             data.speed = movement.speed;
             data.data = ModelSerializer.GetMeshData(gameObject);
             return data;

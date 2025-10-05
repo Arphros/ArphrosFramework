@@ -97,10 +97,19 @@ namespace ArphrosFramework {
         public Transform screenTransform;
         public Transform environmentTransform;
 
+#pragma warning disable IDE0044 // Add readonly modifier
         private bool _firstProject = true;
+#pragma warning restore IDE0044 // Add readonly modifier
 
         private void Awake() {
             Instance = this;
+        }
+
+        public async void LoadLevel(LevelData data) {
+            try {
+            } catch (Exception e) {
+
+            }
         }
 
         private void OnDestroy() {

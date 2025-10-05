@@ -112,7 +112,7 @@ namespace ArphrosFramework {
                 // TODO: Add offset support
                 /*if (LevelManager.Instance.player.source.time + References.GameManager.totalOffset >= timeMinimum)
                     OnAnimationTriggered();*/
-                if (LevelManager.Instance.player.source.time >= timeMinimum)
+                if (LevelManager.Instance.player.audioSource.time >= timeMinimum)
                     OnAnimationTriggered();
             }
         }

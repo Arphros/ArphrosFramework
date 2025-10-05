@@ -119,6 +119,73 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &41784814
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 41784815}
+  m_Layer: 0
+  m_Name: Game
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &41784815
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 41784814}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 911316831}
+  - {fileID: 705507995}
+  - {fileID: 182459566}
+  - {fileID: 2004657176}
+  m_Father: {fileID: 443817753}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &56733173
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 56733174}
+  m_Layer: 0
+  m_Name: Managers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &56733174
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 56733173}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 8.17889, y: -0.5, z: 11.34889}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 522341552}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &182459562
 GameObject:
   m_ObjectHideFlags: 0
@@ -225,12 +292,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 182459562}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 41784815}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!54 &182459568
 Rigidbody:
@@ -271,17 +338,75 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7447aaefaff931342bb31f198294f670, type: 3}
   m_Name: 
   m_EditorClassIdentifier: ArphrosFramework.Runtime::ArphrosFramework.PlayerMovement
-  sequence: {fileID: 531474479}
-  speed: 15
-  rotationIndex: 1
-  rotations:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 90, z: 0}
-  source: {fileID: 963194230}
-  isStarted: 0
-  isControllable: 1
-  inputQueue: 0
+  meshFilter: {fileID: 182459565}
+  renderer: {fileID: 182459564}
+  collider: {fileID: 182459563}
+  audioSource: {fileID: 963194230}
+  soundSource: {fileID: 963194230}
+  rigidbody: {fileID: 182459568}
+  currentGround: {fileID: 0}
+  wallSound: {fileID: 0}
+  waterSound: {fileID: 0}
   tailParent: {fileID: 2004657176}
+  fallParticle: {fileID: 0}
+  noControlRequest: 0
+  tailType: 0
+  funkyTail: 0
+  speed: 15
+  minimumTimeForParticle: 0.1
+  groundLayers:
+    serializedVersion: 2
+    m_Bits: 49
+  tailLayer: 8
+  remainsLayer: 7
+  allowRestartByKey: 0
+  restartKey: 27
+  keys: 4301000020000000110100006a0000006b000000
+  specialKeys: 17000000
+  usePhysicsReading: 1
+  disableDistanceCheck: 1
+  turn1: {x: 0, y: 90, z: 0}
+  turn2: {x: 0, y: 0, z: 0}
+  downDirection: {x: 0, y: -1, z: 0}
+  adjustYTail: 1
+  pieceCount: 5
+  yeetPower: 5
+  presetOffsets: []
+  isInvicible: 0
+  isStarted: 0
+  isFinished: 0
+  isAlive: 1
+  isControllable: 1
+  isMoving: 1
+  loopCount: 1
+  causedBy: {fileID: 0}
+  triggerBlockAmount: 0
+  onStarted:
+    m_PersistentCalls:
+      m_Calls: []
+  onTurn:
+    m_PersistentCalls:
+      m_Calls: []
+  onTap:
+    m_PersistentCalls:
+      m_Calls: []
+  onTailCreate:
+    m_PersistentCalls:
+      m_Calls: []
+  onStop:
+    m_PersistentCalls:
+      m_Calls: []
+  onDied:
+    m_PersistentCalls:
+      m_Calls: []
+  onFinish:
+    m_PersistentCalls:
+      m_Calls: []
+  wasFlying: 0
+  isGrounded: 0
+  lineStart: {x: 0, y: 0, z: 0}
+  previousVelocity: {x: 0, y: 0, z: 0}
+  additionalOffset: 0
 --- !u!1 &251410143
 GameObject:
   m_ObjectHideFlags: 0
@@ -393,6 +518,323 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &443817752
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 443817753}
+  m_Layer: 0
+  m_Name: Spaces
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &443817753
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 443817752}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 962066713}
+  - {fileID: 41784815}
+  - {fileID: 1672474137}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &522341551
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 522341552}
+  - component: {fileID: 522341553}
+  m_Layer: 0
+  m_Name: Level
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &522341552
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 522341551}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 56733174}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &522341553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 522341551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dbc05c442517b6428b0394c0991357d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: ArphrosFramework.Runtime::ArphrosFramework.LevelManager
+  game: {fileID: 0}
+  player: {fileID: 0}
+  defaultMusic: {fileID: 0}
+  originalData:
+    info:
+      id: 0
+      levelName: Untitled
+      description: 
+      difficulty: Auto
+      theme: Other
+      genre: Other
+      musicName: Untitled
+      musicAuthor: Unknown
+      gameVersion: 
+      levelVersion: 0
+      editedTime: 
+      finishedLevelVersion: 0
+      isFinished: 0
+      cameraType: 0
+      environment:
+        skybox: 0
+        backgroundColor: {r: 1, g: 1, b: 1, a: 1}
+        enableFog: 0
+        fogDensity: 0.01
+        fogColor: {r: 1, g: 1, b: 1, a: 1}
+        ambientColor: {r: 1, g: 1, b: 1, a: 1}
+    player:
+      id: 0
+      parentId: -1
+      type: 1
+      spaceType: 0
+      name: Object
+      canCollide: 1
+      position: {x: 0, y: 0, z: 0}
+      eulerAngles: {x: 0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+      groupId: 
+      obstacleType: 0
+      visibility: 0
+      animatable: 
+      animatableData:
+        mode: 1
+        animateCollider: 1
+        reverseAnimation: 0
+        ease: 1
+        duration: 1
+        timeMinimum: 2
+        distanceMinimum: 12
+        basedOnOrigin: 0
+        animatePosition: 0
+        positionValueType: 0
+        asOffset: 0
+        positionValue: {x: 0, y: 0, z: 0}
+        startPositionValue: {x: 0, y: 0, z: 0}
+        endPositionValue: {x: 0, y: 0, z: 0}
+        animateRotation: 0
+        rotationValueType: 0
+        asOffsetRotation: 0
+        rotationValue: {x: 0, y: 0, z: 0}
+        startRotationValue: {x: 0, y: 0, z: 0}
+        endRotationValue: {x: 0, y: 0, z: 0}
+        animateScale: 0
+        scaleValueType: 0
+        asOffsetScale: 0
+        scaleValue: {x: 0, y: 0, z: 0}
+        startScaleValue: {x: 0, y: 0, z: 0}
+        endScaleValue: {x: 0, y: 0, z: 0}
+        animateColor: 0
+        colorValueType: 0
+        colorValue: {r: 0, g: 0, b: 0, a: 0}
+        startColorValue: {r: 0, g: 0, b: 0, a: 0}
+        endColorValue: {r: 0, g: 0, b: 0, a: 0}
+        onlyColorThisObject: 0
+      customData: 
+    directionalLight:
+      id: 0
+      parentId: -1
+      type: 1
+      spaceType: 0
+      name: Object
+      canCollide: 1
+      position: {x: 0, y: 0, z: 0}
+      eulerAngles: {x: 0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+      groupId: 
+      obstacleType: 0
+      visibility: 0
+      animatable: 
+      animatableData:
+        mode: 1
+        animateCollider: 1
+        reverseAnimation: 0
+        ease: 1
+        duration: 1
+        timeMinimum: 2
+        distanceMinimum: 12
+        basedOnOrigin: 0
+        animatePosition: 0
+        positionValueType: 0
+        asOffset: 0
+        positionValue: {x: 0, y: 0, z: 0}
+        startPositionValue: {x: 0, y: 0, z: 0}
+        endPositionValue: {x: 0, y: 0, z: 0}
+        animateRotation: 0
+        rotationValueType: 0
+        asOffsetRotation: 0
+        rotationValue: {x: 0, y: 0, z: 0}
+        startRotationValue: {x: 0, y: 0, z: 0}
+        endRotationValue: {x: 0, y: 0, z: 0}
+        animateScale: 0
+        scaleValueType: 0
+        asOffsetScale: 0
+        scaleValue: {x: 0, y: 0, z: 0}
+        startScaleValue: {x: 0, y: 0, z: 0}
+        endScaleValue: {x: 0, y: 0, z: 0}
+        animateColor: 0
+        colorValueType: 0
+        colorValue: {r: 0, g: 0, b: 0, a: 0}
+        startColorValue: {r: 0, g: 0, b: 0, a: 0}
+        endColorValue: {r: 0, g: 0, b: 0, a: 0}
+        onlyColorThisObject: 0
+      customData: 
+    mainCamera:
+      id: 0
+      parentId: -1
+      type: 1
+      spaceType: 0
+      name: Object
+      canCollide: 1
+      position: {x: 0, y: 0, z: 0}
+      eulerAngles: {x: 0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+      groupId: 
+      obstacleType: 0
+      visibility: 0
+      animatable: 
+      animatableData:
+        mode: 1
+        animateCollider: 1
+        reverseAnimation: 0
+        ease: 1
+        duration: 1
+        timeMinimum: 2
+        distanceMinimum: 12
+        basedOnOrigin: 0
+        animatePosition: 0
+        positionValueType: 0
+        asOffset: 0
+        positionValue: {x: 0, y: 0, z: 0}
+        startPositionValue: {x: 0, y: 0, z: 0}
+        endPositionValue: {x: 0, y: 0, z: 0}
+        animateRotation: 0
+        rotationValueType: 0
+        asOffsetRotation: 0
+        rotationValue: {x: 0, y: 0, z: 0}
+        startRotationValue: {x: 0, y: 0, z: 0}
+        endRotationValue: {x: 0, y: 0, z: 0}
+        animateScale: 0
+        scaleValueType: 0
+        asOffsetScale: 0
+        scaleValue: {x: 0, y: 0, z: 0}
+        startScaleValue: {x: 0, y: 0, z: 0}
+        endScaleValue: {x: 0, y: 0, z: 0}
+        animateColor: 0
+        colorValueType: 0
+        colorValue: {r: 0, g: 0, b: 0, a: 0}
+        startColorValue: {r: 0, g: 0, b: 0, a: 0}
+        endColorValue: {r: 0, g: 0, b: 0, a: 0}
+        onlyColorThisObject: 0
+      customData: 
+    meshes: []
+    materials: []
+    sprites: []
+    objects: []
+    scripts: []
+  levelInfo:
+    id: 0
+    levelName: Untitled
+    description: 
+    difficulty: Auto
+    theme: Other
+    genre: Other
+    musicName: Untitled
+    musicAuthor: Unknown
+    gameVersion: 
+    levelVersion: 0
+    editedTime: 
+    finishedLevelVersion: 0
+    isFinished: 0
+    cameraType: 0
+    environment:
+      skybox: 0
+      backgroundColor: {r: 1, g: 1, b: 1, a: 1}
+      enableFog: 0
+      fogDensity: 0.01
+      fogColor: {r: 1, g: 1, b: 1, a: 1}
+      ambientColor: {r: 1, g: 1, b: 1, a: 1}
+  defaultEnvironment:
+    skybox: 0
+    backgroundColor: {r: 1, g: 1, b: 1, a: 1}
+    enableFog: 0
+    fogDensity: 0.01
+    fogColor: {r: 1, g: 1, b: 1, a: 1}
+    ambientColor: {r: 1, g: 1, b: 1, a: 1}
+  primitiveTypes: 0300000000000000010000000200000004000000
+  primitiveMeshes: []
+  triggerTypes: 000000000100000015000000
+  triggerColors:
+  - {r: 0, g: 1, b: 0, a: 1}
+  - {r: 1, g: 0, b: 0, a: 1}
+  - {r: 0, g: 0, b: 1, a: 1}
+  fonts: []
+  halfPyramid: {fileID: 0}
+  lightSprite: {fileID: 0}
+  squareSprite: {fileID: 0}
+  startPosSprite: {fileID: 0}
+  modelMaterial: {fileID: 0}
+  triggerMaterial: {fileID: 0}
+  foggedTextShader: {fileID: 0}
+  triggerAlpha: 0.5
+  spriteMaterial: {fileID: 0}
+  fogSpriteMaterial: {fileID: 0}
+  skyboxMaterials: []
+  rayDistance: 50
+  spawnDistance: 5
+  cameraType: 0
+  normalLayer: 0
+  playerLayer: 0
+  triggerLayer: 0
+  spriteLayer: 0
+  passthroughLayer: 0
+  floatingObstacleLayer: 0
+  spawnPointIgnoreLayer: 0
+  spawnPointLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  standardTransform: {fileID: 0}
+  screenTransform: {fileID: 0}
+  environmentTransform: {fileID: 0}
 --- !u!1 &531474476
 GameObject:
   m_ObjectHideFlags: 0
@@ -580,7 +1022,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 41784815}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &911316830
 GameObject:
@@ -614,7 +1056,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 963194228}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 41784815}
   m_LocalEulerAnglesHint: {x: 45, y: 45, z: 0}
 --- !u!114 &911316832
 MonoBehaviour:
@@ -660,6 +1102,37 @@ MonoBehaviour:
     rotationSmoothing: 1
   simulateInEditor: 1
   cameraTransform: {fileID: 963194231}
+--- !u!1 &962066712
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 962066713}
+  m_Layer: 0
+  m_Name: Screen
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &962066713
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 962066712}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 443817753}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -976,6 +1449,37 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &1672474136
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1672474137}
+  m_Layer: 0
+  m_Name: Environment
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1672474137
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1672474136}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 443817753}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1941804545
 GameObject:
   m_ObjectHideFlags: 0
@@ -1068,23 +1572,21 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2004657175}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 41784815}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 705507995}
-  - {fileID: 911316831}
-  - {fileID: 182459566}
-  - {fileID: 2004657176}
   - {fileID: 1497071517}
   - {fileID: 1941804548}
   - {fileID: 531474478}
   - {fileID: 251410147}
   - {fileID: 685355664}
+  - {fileID: 56733174}
+  - {fileID: 443817753}
