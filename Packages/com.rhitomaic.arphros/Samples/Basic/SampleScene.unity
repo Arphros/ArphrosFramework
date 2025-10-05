@@ -350,7 +350,7 @@ MonoBehaviour:
   tailParent: {fileID: 2004657176}
   fallParticle: {fileID: 0}
   noControlRequest: 0
-  tailType: 0
+  tailType: 1
   funkyTail: 0
   speed: 15
   minimumTimeForParticle: 0.1
@@ -596,6 +596,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dbc05c442517b6428b0394c0991357d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: ArphrosFramework.Runtime::ArphrosFramework.LevelManager
+  currentDirectory: 
   game: {fileID: 0}
   player: {fileID: 0}
   defaultMusic: {fileID: 0}

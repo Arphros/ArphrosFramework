@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using System;
 using TMPro;
 using UnityEngine;
@@ -14,6 +15,8 @@ namespace ArphrosFramework {
         public static bool isEditor;
 
         public static Action afterLoad;
+        public static string DirectoryQueue;
+        public string currentDirectory;
 
         [Header("Reference")]
         public GameObject game;
@@ -105,10 +108,69 @@ namespace ArphrosFramework {
             Instance = this;
         }
 
+        /// <summary>
+        /// Called before project loads
+        /// </summary>
+        public void Initialize(bool refuseBreaking = false) {
+            Instance = this;
+            ClearDictionary();
+
+            int len = standardTransform.childCount;
+            for (int i = 0; i < len; i++) {
+                var info = standardTransform.GetChild(i).GetInfo();
+                if (info != null)
+                    info.Initialize();
+            }
+
+            References.MainCamera.GetInfo().Initialize();
+
+            len = environmentTransform.childCount;
+            for (int i = 0; i < len; i++) {
+                var child = environmentTransform.GetChild(i);
+                if (child) {
+                    var info = child.GetInfo();
+                    if (info)
+                        info.Initialize();
+                }
+            }
+
+            // Initialize assets
+            /*materialManager.Initialize();
+            meshManager.Initialize();
+            spriteManager.Initialize();
+            scriptManager.Initialize();*/
+
+            if (!refuseBreaking) {
+                levelInfo.environment = defaultEnvironment;
+                levelInfo.environment.Apply();
+            }
+
+            if (_firstProject) {
+                if (!string.IsNullOrWhiteSpace(DirectoryQueue)) {
+                    if (Storage.DirectoryExists(DirectoryQueue))
+                        LoadLevel(DirectoryQueue);
+                }
+                else {
+                    currentDirectory = Storage.GetPathLocal("Levels/Cache");
+                    // meshManager.Refresh();
+                    // spriteManager.Refresh();
+                }
+
+                _firstProject = false;
+            }
+        }
+
+        public void LoadLevel(string path) {
+            var rawData = Storage.ReadAllText(path);
+            var data = ArphrosSerializer.Deserialize<LevelData>(rawData);
+            LoadLevel(data);
+        }
+
         public async void LoadLevel(LevelData data) {
             try {
+                await UniTask.Delay(20);
             } catch (Exception e) {
-
+                Debug.LogException(e);
             }
         }
 
