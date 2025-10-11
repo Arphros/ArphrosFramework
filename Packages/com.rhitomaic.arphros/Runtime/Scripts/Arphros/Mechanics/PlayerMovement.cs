@@ -7,13 +7,15 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
+using PrimeTween;
+
 
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 
 namespace ArphrosFramework {
-    public class PlayerMovement : MonoBehaviour {
+    public class PlayerMovement : ObjectSerializer<PlayerData> {
         #region Variables
         [Header("Components")]
         public MeshFilter meshFilter;
@@ -102,10 +104,10 @@ namespace ArphrosFramework {
         [AllowSavingState][HideInInspector] public bool wasFlying;
         [AllowSavingState][HideInInspector] public bool isGrounded = true;
         [AllowSavingState][HideInInspector] public Vector3 lineStart;
-        // TODO: Implement PrimeTween
-        //private Tween _volumeTween;
+        private Tween _volumeTween;
         [HideInInspector]
         public Vector3 previousVelocity;
+        private Material _previousMaterial;
         #endregion 
 
         #region Events
@@ -117,10 +119,22 @@ namespace ArphrosFramework {
             audioSource ??= GetComponent<AudioSource>();
         }
 
-        private void Update() {
+        private void Update()
+        {
             InitialUpdate();
             GroundUpdate();
             MovementUpdate();
+        }
+        
+        private void DetectMaterialChange()
+        {
+            if (_previousMaterial == null)
+                _previousMaterial = renderer.sharedMaterial;
+
+            if (renderer.sharedMaterial != _previousMaterial) {
+                _previousMaterial = renderer.sharedMaterial;
+                ChangeAllTailMaterials(_previousMaterial);
+            }
         }
 
         private void FixedUpdate() {
@@ -568,13 +582,12 @@ namespace ArphrosFramework {
         }
 
         private void FadeOutMusic(float duration) {
-            // TODO: Import PrimeTween here
-            //_volumeTween.Stop();
-            //_volumeTween = Tween.AudioVolume(audioSource, 0f, duration);
+            _volumeTween.Stop();
+            _volumeTween = Tween.AudioVolume(audioSource, 0f, duration);
         }
 
         public void CancelFade() {
-            //_volumeTween.Stop();
+            _volumeTween.Stop();
         }
 
         public void ClearPieces() {
@@ -641,7 +654,8 @@ namespace ArphrosFramework {
         /// <summary>
         /// Get all of the tail in between two tails
         /// </summary>
-        public List<Transform> GetTailInBetween(Transform transform1, Transform transform2) {
+        public List<Transform> GetTailInBetween(Transform transform1, Transform transform2)
+        {
             var list = new List<Transform>();
             var index1 = _tails.FindIndex(val => val.transform == transform1);
             var index2 = _tails.FindIndex(val => val.transform == transform2);
@@ -655,6 +669,67 @@ namespace ArphrosFramework {
             for (var i = index1; i < index2 + 1; i++)
                 list.Add(_tails[i].transform);
             return list;
+        }
+        #endregion
+        
+        #region Serialization
+        public override void OnDeserialized(PlayerData obj) {
+            ModelSerializer.ApplyMeshData(gameObject, obj.data);
+            gameObject.GetComponent<BoxCollider>();
+
+            speed = obj.speed;
+            turn1 = obj.direction1;
+            turn2 = obj.direction2;
+        }
+
+        public override PlayerData OnSerialize()
+        {
+            var data = new PlayerData
+            {
+                direction1 = turn1,
+                direction2 = turn2,
+                speed = speed,
+                data = ModelSerializer.GetMeshData(gameObject)
+            };
+            return data;
+        }
+        #endregion
+        
+        #region Playmode Actions
+        Material mainMaterial;
+        public override void OnPlay(bool wasPaused) {
+            if (wasPaused) {
+                References.Player.ReduceByOne();
+            }
+            else {
+                mainMaterial = renderer.sharedMaterial;
+            }
+        }
+
+        public override void OnPause() {
+            base.OnPause();
+            References.Player.ExtendByOne();
+        }
+
+        public override void OnStop() {
+            renderer.sharedMaterial = mainMaterial;
+        }
+
+        public override void OnVisibilityChange(VisibilityType visibilityType) {
+            base.OnVisibilityChange(visibilityType);
+            switch (visibilityType) {
+                case VisibilityType.Shown:
+                    renderer.enabled = true;
+                    break;
+                case VisibilityType.Hidden:
+                    renderer.enabled = false;
+                    break;
+                default:
+                    // TODO: Reimplement this weird warning I guess lol
+                    //if (!LevelManager.IsNotEditor)
+                    //Toast.Show("The player resists.");
+                    break;
+            }
         }
         #endregion
     }

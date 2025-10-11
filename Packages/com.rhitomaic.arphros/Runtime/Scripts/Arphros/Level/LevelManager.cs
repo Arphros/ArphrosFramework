@@ -4,6 +4,9 @@ using TMPro;
 using UnityEngine;
 
 namespace ArphrosFramework {
+    /// <summary>
+    /// Manages the whole level basically, loading objects, creating objects, fixing objects, references, etc.
+    /// </summary>
     public class LevelManager : InstanceManager<ObjectInfo> {
         public static LevelManager Instance;
 
