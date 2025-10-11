@@ -3,7 +3,8 @@ using UnityEngine;
 
 namespace ArphrosFramework {
     /// <summary>
-    /// TODO: I might need to rename this class to something else later, since it does more than just serialization
+    /// TODO: I might need to rename this class to something else later, since it does more than just serialization. 
+    /// Or separate into another class or interface.
     /// </summary>
     public class ObjectSerializer : MonoBehaviour {
         public ObjectInfo info;
