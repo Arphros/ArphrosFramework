@@ -93,7 +93,8 @@ namespace ArphrosFramework {
                 _cache = new ReflectionedObj(gameObject);
         }
 
-        public void SaveAsDefault(bool save = false) {
+        public void SaveAsDefault(bool save = false)
+        {
             defaultParent = transform.parent;
             defaultPosition = transform.localPosition;
             defaultEulerAngles = transform.localEulerAngles;
@@ -104,8 +105,14 @@ namespace ArphrosFramework {
                 _cache = new ReflectionedObj(gameObject);
         }
 
-        public void ResetObject() {
-            if (isModified && !gameObject.CompareTag("Player")) {
+        /// <summary>
+        /// Using System.Reflection to reset the object to its default state, might be wonky
+        /// TODO: Considering to change this to a more manual way for optimization purposes
+        /// </summary>
+        public void ResetObject()
+        {
+            if (isModified && !gameObject.CompareTag("Player"))
+            {
                 isModified = false;
                 return;
             }
@@ -114,10 +121,19 @@ namespace ArphrosFramework {
             ApplyDefault(false);
         }
 
+        /// <summary>
+        /// This might be called when an object is Registered using <see cref="InstanceManager.Register(int, T, bool)"/> with override turned on
+        /// </summary>
         public void OnIdRedirected(int previousId, int newId) => serializer.OnIdRedirected(previousId, newId);
 
-        public ObjectData GetObject() {
-            data = new() {
+        /// <summary>
+        /// Serialized data of the object to be saved in the level file
+        /// </summary>
+        /// <returns>The serialized object data</returns>
+        public ObjectData GetObject()
+        {
+            data = new()
+            {
                 id = instanceId,
                 type = type,
                 spaceType = spaceType,
@@ -133,7 +149,8 @@ namespace ArphrosFramework {
             if (animatable)
                 data.animatable = animatable.Serialize();
 
-            if (transform.parent) {
+            if (transform.parent)
+            {
                 var parentInfo = transform.parent.GetInfo();
                 if (parentInfo)
                     if (parentInfo.instanceId != 1 && !parentInfo.isUnmodifiable)
@@ -148,7 +165,12 @@ namespace ArphrosFramework {
             return data;
         }
 
-        public void FromObject(ObjectData objData) {
+        /// <summary>
+        /// Receiving the serialized data to finally be applied onto the object
+        /// </summary>
+        /// <param name="objData">The serialized data</param>
+        public void FromObject(ObjectData objData)
+        {
             data = objData;
             type = objData.type;
             if (state != ObjectLevel.BuiltIn)
@@ -172,7 +194,8 @@ namespace ArphrosFramework {
                 state = ObjectLevel.Project;
             Initialize();
 
-            switch (type) {
+            switch (type)
+            {
                 case ObjectType.Player:
                     serializer = GetComponent<PlayerMovement>();
                     gameObject.layer = LevelManager.Instance.playerLayer;
@@ -231,13 +254,15 @@ namespace ArphrosFramework {
             serializer.info = this;
             serializer.Deserialize(objData.customData);
 
-            if (!string.IsNullOrWhiteSpace(objData.animatable)) {
+            if (!string.IsNullOrWhiteSpace(objData.animatable))
+            {
                 animatable = gameObject.AddComponent<Animatable>();
                 animatable.info = this;
                 animatable.Deserialize(objData.animatable);
             }
 
-            switch (type) {
+            switch (type)
+            {
                 case ObjectType.Primitive:
                 case ObjectType.Model:
                 case ObjectType.Road:
@@ -252,7 +277,8 @@ namespace ArphrosFramework {
             SetupColorAction();
 
             SetVisibility(objData.visibility);
-            LevelManager.afterLoad += () => {
+            LevelManager.afterLoad += () =>
+            {
                 if (objData.parentId is <= -1 or 1) return;
 
                 var parent = LevelManager.GetObject(objData.parentId);
@@ -262,7 +288,11 @@ namespace ArphrosFramework {
             };
         }
 
-        public void SetSpaceType(SpaceType targetType) {
+        /// <summary>
+        /// Use this instead of manually changing <see cref="spaceType"/>
+        /// </summary>
+        public void SetSpaceType(SpaceType targetType)
+        {
             if (spaceType == targetType) return;
 
             spaceType = targetType;
@@ -273,42 +303,56 @@ namespace ArphrosFramework {
                     : LevelManager.Instance.environmentTransform, false);
         }
 
-        public void AdjustParentType() {
-            var previousSpaceType = spaceType;
+        public void AdjustParentType()
+        {
+            // var previousSpaceType = spaceType;
+
             var parent = transform.parent;
             if (!parent) return;
 
             var pInfo = parent.GetInfo();
-            if (pInfo) {
+            if (pInfo)
                 spaceType = pInfo.spaceType;
-            }
-            else {
+            else
                 spaceType = parent == LevelManager.Instance.screenTransform ? SpaceType.Screen : SpaceType.World;
-            }
 
+            // TODO: Decide if we want to keep this behavior
             /*if (previousSpaceType != spaceType)
                 References.Inspector.UpdateValues();*/
         }
 
-        public void ChangeParent(Transform parent) {
+        public void ChangeParent(Transform parent)
+        {
             transform.SetParent(parent);
         }
 
-        public void SetCollideMode(bool to) {
+        /// <summary>
+        /// A way to change the collidable state of the object.
+        /// This will not work if the object is an obstacle, since it will always have to be collidable, use Float or Wall instead
+        /// </summary>
+        public void SetCollideMode(bool to)
+        {
             if (obstacleType != ObstacleType.None) return;
 
             canCollide = to;
             var currentCollider = GetComponent<Collider>();
-            if (currentCollider) {
+            if (currentCollider)
+            {
                 CarefullySetIsTrigger(currentCollider, !to);
                 gameObject.layer = to ? LevelManager.Instance.normalLayer : LevelManager.Instance.passthroughLayer;
             }
             serializer.OnCollidableChanged(to);
         }
 
-        public void SetObstacleType(ObstacleType targetType) {
+        /// <summary>
+        /// Use this instead of manually changing <see cref="obstacleType"/>.
+        /// This will also change the tag, layer, collider and collidable state of the object
+        /// </summary>
+        public void SetObstacleType(ObstacleType targetType)
+        {
             obstacleType = targetType;
-            switch (targetType) {
+            switch (targetType)
+            {
                 case ObstacleType.None:
                     tag = "Untagged";
                     var currentCollider = GetComponent<Collider>();
@@ -356,13 +400,19 @@ namespace ArphrosFramework {
             }
         }
 
-        private void CarefullySetIsTrigger(Collider col, bool to) {
+        /// <summary>
+        /// HACK: A workaround for MeshCollider.isTrigger not being supported in PhysX
+        /// </summary>
+        private void CarefullySetIsTrigger(Collider col, bool to)
+        {
             if (!col) return;
 
-            if (col is MeshCollider) {
+            if (col is MeshCollider)
+            {
                 //Debug.LogWarning("The level creator has set an obstacle type of water on a non-primitive object, the support for this is still experimental and may be buggy", gameObject);
             }
-            else {
+            else
+            {
                 col.isTrigger = to;
             }
         }
