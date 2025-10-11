@@ -174,7 +174,7 @@ namespace ArphrosFramework {
 
             switch (type) {
                 case ObjectType.Player:
-                    serializer = GetComponent<PlayerSerializer>();
+                    serializer = GetComponent<PlayerMovement>();
                     gameObject.layer = LevelManager.Instance.playerLayer;
                     break;
                 case ObjectType.MainCamera:
