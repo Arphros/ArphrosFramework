@@ -385,6 +385,38 @@ namespace ArphrosFramework {
             }
         }
 
+        /// <summary>
+        /// Use this instead of manually changing <see cref="visibility"/>.
+        /// This will change the active state of the object or the enabled state of renderers based on the serializers
+        /// </summary>
+        public void SetVisibility(VisibilityType targetType)
+        {
+            if (state == ObjectLevel.BuiltIn)
+            {
+                if (gameObject.CompareTag("Player"))
+                {
+                    serializer.OnVisibilityChange(targetType);
+                    return;
+                }
+
+                visibility = VisibilityType.Shown;
+                return;
+            }
+
+            visibility = targetType;
+            switch (targetType)
+            {
+                case VisibilityType.Shown:
+                case VisibilityType.Hidden:
+                    gameObject.SetActive(true);
+                    break;
+                case VisibilityType.Gone:
+                    gameObject.SetActive(false);
+                    break;
+            }
+            serializer.OnVisibilityChange(targetType);
+        }
+
         private void OnCollisionEnter(Collision collision) {
             if (collision.gameObject.CompareTag("Player")) {
                 if (obstacleType == ObstacleType.Water) {
@@ -417,31 +449,11 @@ namespace ArphrosFramework {
             }
         }
 
-        public void SetVisibility(VisibilityType targetType) {
-            if (state == ObjectLevel.BuiltIn) {
-                if (gameObject.CompareTag("Player")) {
-                    serializer.OnVisibilityChange(targetType);
-                    return;
-                }
-
-                visibility = VisibilityType.Shown;
-                return;
-            }
-
-            visibility = targetType;
-            switch (targetType) {
-                case VisibilityType.Shown:
-                case VisibilityType.Hidden:
-                    gameObject.SetActive(true);
-                    break;
-                case VisibilityType.Gone:
-                    gameObject.SetActive(false);
-                    break;
-            }
-            serializer.OnVisibilityChange(targetType);
-        }
-
-        private void FixReferences() {
+        /// <summary>
+        /// HACK: Why do we do this? Can we just detect the type of the object or is something mischevious happening here?
+        /// </summary>
+        private void FixReferences()
+        {
             _spriteRenderer = GetComponent<SpriteRenderer>();
             _renderer = GetComponent<MeshRenderer>();
             _light = GetComponent<Light>();
