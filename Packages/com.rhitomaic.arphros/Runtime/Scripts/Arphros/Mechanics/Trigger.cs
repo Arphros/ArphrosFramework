@@ -48,6 +48,7 @@ namespace ArphrosFramework {
         static LTDescr[] environmentTween = new LTDescr[2];
         private bool quickMode;
         #endregion
+        
         #region Tween Compact
         public LTDescr TweenVector3(Vector3 start, Vector3 end, float duration, LeanTweenType ease, Action<Vector3> update) {
             var tween = LeanTween.value(gameObject, start, end, duration).setEase(ease).setOnUpdate(update);
