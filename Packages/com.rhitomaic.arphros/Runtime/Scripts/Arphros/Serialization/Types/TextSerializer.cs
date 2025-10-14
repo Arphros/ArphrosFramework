@@ -21,7 +21,7 @@ namespace ArphrosFramework
             renderer.verticalAlignment = obj.verticalAlignment;
             (transform as RectTransform).sizeDelta = obj.boundsSize;
             AdjustBoxCollider();
-            FuckUpMyMaterials();
+            FuckUpMyMaterials(renderer);
         }
 
         public override TextData OnSerialize()
@@ -43,17 +43,6 @@ namespace ArphrosFramework
         /// <summary>
         /// Changes the material so it's compatible with fog
         /// </summary>
-        public void FuckUpMyMaterials()
-        {
-            var newMaterials = renderer.fontSharedMaterials;
-            for (int i = 0; i < newMaterials.Length; i++)
-                newMaterials[i] = RefogMaterial(newMaterials[i]);
-            renderer.fontSharedMaterials = newMaterials;
-        }
-
-        /// <summary>
-        /// Changes the material so it's compatible with fog
-        /// </summary>
         public static void FuckUpMyMaterials(TextMeshPro renderer)
         {
             var newMaterials = renderer.fontSharedMaterials;
@@ -64,8 +53,7 @@ namespace ArphrosFramework
 
         public static Material RefogMaterial(Material material)
         {
-            var newMaterial = new Material(material);
-            newMaterial.shader = LevelManager.Instance.foggedTextShader;
+            var newMaterial = new Material(material) { shader = LevelManager.Instance.foggedTextShader };
             return newMaterial;
         }
 
@@ -93,10 +81,8 @@ namespace ArphrosFramework
 
         public override void OnPlay(bool wasPaused)
         {
-            if (wasPaused)
-            {
-            }
-            else
+            // Only store values from the very beginning
+            if (!wasPaused)
             {
                 _text = renderer.text;
                 _mainColor = renderer.color;
