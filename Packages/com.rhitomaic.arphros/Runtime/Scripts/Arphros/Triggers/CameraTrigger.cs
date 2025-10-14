@@ -5,19 +5,12 @@ namespace ArphrosFramework
 {
     public class CameraTrigger : TriggerBehavior
     {
-        private Data _data;
-        private LeanTweenType _ease;
-        private float _duration;
-        private ObjectInfo _target;
+        public Data data = new();
+        public LeanTweenType ease = LeanTweenType.linear;
+        public float duration = 1f;
+        public ObjectInfo target;
 
-        public CameraTrigger(Trigger owner, Data data, LeanTweenType ease, float duration, ObjectInfo target)
-            : base(owner)
-        {
-            _data = data;
-            _ease = ease;
-            _duration = duration;
-            _target = target;
-        }
+        public CameraTrigger(Trigger owner) : base(owner) {}
 
         public override void OnTriggerEnter(Collider other)
         {
@@ -32,60 +25,60 @@ namespace ArphrosFramework
             var camera = References.Camera;
             camera.oldSystemActive = false;
 
-            if (_duration > 0 && !Owner.quickMode)
+            if (duration > 0 && !Owner.quickMode)
             {
-                if (_data.bRotation)
-                    Owner.TweenVector3(camera.targetRotation, _data.rotation, _duration, _ease, x => camera.targetRotation = x);
-                if (_data.bPivotOffset)
-                    Owner.TweenVector3(camera.pivotOffset, _data.pivotOffset, _duration, _ease, x => camera.pivotOffset = x);
-                if (_data.bDistance)
-                    Owner.TweenFloat(camera.targetDistance, _data.distance, _duration, _ease, x => camera.targetDistance = x);
-                if (_data.bFactor)
-                    Owner.TweenFloat(camera.smoothFactor, _data.factor, _duration, _ease, x => camera.smoothFactor = x);
+                if (data.bRotation)
+                    Owner.TweenVector3(camera.targetRotation, data.rotation, duration, ease, x => camera.targetRotation = x);
+                if (data.bPivotOffset)
+                    Owner.TweenVector3(camera.pivotOffset, data.pivotOffset, duration, ease, x => camera.pivotOffset = x);
+                if (data.bDistance)
+                    Owner.TweenFloat(camera.targetDistance, data.distance, duration, ease, x => camera.targetDistance = x);
+                if (data.bFactor)
+                    Owner.TweenFloat(camera.smoothFactor, data.factor, duration, ease, x => camera.smoothFactor = x);
             }
             else
             {
-                if (_data.bRotation) camera.targetRotation = _data.rotation;
-                if (_data.bPivotOffset) camera.pivotOffset = _data.pivotOffset;
-                if (_data.bDistance) camera.targetDistance = _data.distance;
-                if (_data.bFactor) camera.smoothFactor = _data.factor;
+                if (data.bRotation) camera.targetRotation = data.rotation;
+                if (data.bPivotOffset) camera.pivotOffset = data.pivotOffset;
+                if (data.bDistance) camera.targetDistance = data.distance;
+                if (data.bFactor) camera.smoothFactor = data.factor;
             }
 
-            if (_data.bTarget && _target)
-                camera.target = _target.transform;
+            if (data.bTarget && target)
+                camera.target = target.transform;
 
-            if (_data.followImmediate)
+            if (data.followImmediate)
                 camera.Process(true);
         }
 
         public override string Serialize()
         {
-            string[] data = {
-                _data.bRotation.Pack(),
-                _data.rotation.Pack(),
-                _data.bPivotOffset.Pack(),
-                _data.pivotOffset.Pack(),
-                _data.bDistance.Pack(),
-                _data.distance.Pack(),
-                _data.bFactor.Pack(),
-                _data.factor.Pack(),
-                _ease.Pack(),
-                _duration.Pack(),
-                _data.followImmediate.Pack(),
-                _data.bTarget.Pack(),
-                _target.Pack()
+            string[] packed = {
+                data.bRotation.Pack(),
+                data.rotation.Pack(),
+                data.bPivotOffset.Pack(),
+                data.pivotOffset.Pack(),
+                data.bDistance.Pack(),
+                data.distance.Pack(),
+                data.bFactor.Pack(),
+                data.factor.Pack(),
+                ease.Pack(),
+                duration.Pack(),
+                data.followImmediate.Pack(),
+                data.bTarget.Pack(),
+                target.Pack()
             };
-            return Join(data);
+            return Join(packed);
         }
 
-        public override void Deserialize(string data)
+        public override void Deserialize(string packed)
         {
-            if (string.IsNullOrWhiteSpace(data)) return;
+            if (string.IsNullOrWhiteSpace(packed)) return;
 
-            var split = Split(data);
+            var split = Split(packed);
             if (split.Length < 11) return;
 
-            _data = new Data()
+            data = new Data()
             {
                 bRotation = split[0].ToBool(),
                 rotation = split[1].ToVector3(),
@@ -99,11 +92,11 @@ namespace ArphrosFramework
                 bTarget = split[11].ToBool()
             };
 
-            _ease = split[8].ToEnum(LeanTweenType.linear);
-            _duration = split[9].ToFloat();
+            ease = split[8].ToEnum(LeanTweenType.linear);
+            duration = split[9].ToFloat();
 
-            if (_data.bTarget)
-                split[12].AsObject(val => _target = val);
+            if (data.bTarget)
+                split[12].AsObject(val => target = val);
         }
 
         [Serializable]

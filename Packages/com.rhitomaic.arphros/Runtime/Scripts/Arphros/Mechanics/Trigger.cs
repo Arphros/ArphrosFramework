@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace ArphrosFramework {
 
-    // TODO: Implement code trigger and separate all trigger systems
+    // TODO: Migrate all trigger systems here
     /// <summary>
     /// The bare bone of the trigger system, might separate this into different components since you can't change trigger types anyway
     /// </summary>
@@ -15,6 +15,36 @@ namespace ArphrosFramework {
         #region Variables
         [Header("Properties")]
         public TriggerType triggerType = TriggerType.None;
+        public ITriggerBehavior behavior;
+
+        void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Player"))
+            {
+                behavior?.OnTriggerEnter(other);
+            }
+        }
+
+        void OnTriggerExit(Collider other)
+        {
+            if (other.CompareTag("Player"))
+                behavior?.OnTriggerExit(other);
+        }
+
+        public override TriggerData OnSerialize() =>
+            new() { type = triggerType, data = behavior?.Serialize() };
+
+        public override void OnDeserialized(TriggerData obj)
+        {
+            ChangeType(obj.type);
+            behavior?.Deserialize(obj.data);
+        }
+
+        public void ChangeType(TriggerType type)
+        {
+            triggerType = type;
+            behavior = TriggerFactory.Create(this, type);
+        }
 
         [Header("States")]
         public List<LTDescr> tweens = new();

@@ -12,7 +12,7 @@ namespace ArphrosFramework
         public abstract void OnTriggerEnter(Collider other);
         public virtual void OnTriggerExit(Collider other) { }
         public abstract string Serialize();
-        public abstract void Deserialize(string data);
+        public abstract void Deserialize(string packed);
 
         // Optional shared helpers (simplified)
         protected string Join(params string[] values) => string.Join("|", values);
