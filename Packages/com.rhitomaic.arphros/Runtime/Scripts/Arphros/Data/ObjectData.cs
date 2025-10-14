@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ArphrosFramework {
+namespace ArphrosFramework.Data {
     [Serializable]
     public class ObjectData {
         public int id;

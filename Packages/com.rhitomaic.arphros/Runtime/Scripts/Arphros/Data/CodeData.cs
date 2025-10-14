@@ -1,7 +1,6 @@
 ﻿using System;
-using UnityEngine;
 
-namespace ArphrosFramework {
+namespace ArphrosFramework.Data {
     [Serializable]
     public class CodeData {
         public int id;

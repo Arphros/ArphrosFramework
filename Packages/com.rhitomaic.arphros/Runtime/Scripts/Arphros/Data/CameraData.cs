@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System;
-using Newtonsoft.Json;
-namespace ArphrosFramework {
+
+namespace ArphrosFramework.Data {
     [Serializable]
     public class CameraData {
         public int targetId = 0;

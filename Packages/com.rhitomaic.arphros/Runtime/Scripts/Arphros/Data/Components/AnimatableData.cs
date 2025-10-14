@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using static ArphrosFramework.Animatable;
 
-namespace ArphrosFramework {
+namespace ArphrosFramework.Data {
     [System.Serializable]
     public class AnimatableData {
         public StartMode mode = StartMode.ByTime;

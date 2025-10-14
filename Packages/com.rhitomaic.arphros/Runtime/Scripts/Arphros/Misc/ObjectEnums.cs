@@ -34,9 +34,16 @@
         Unspecified = 256
     }
 
-    public enum TailMode {
+    public enum TailMode
+    {
         Clear,
         Disable,
         Enable
+    }
+    
+    public enum RoadRandomOptions {
+        Move,
+        Rotate,
+        Both
     }
 }

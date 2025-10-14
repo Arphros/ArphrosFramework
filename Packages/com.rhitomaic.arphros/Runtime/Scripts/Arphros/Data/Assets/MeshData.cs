@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ArphrosFramework {
+namespace ArphrosFramework.Data {
     [Serializable]
     public class MeshData {
         public int id;

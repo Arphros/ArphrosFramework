@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace ArphrosFramework.Level {
+namespace ArphrosFramework.Data {
     [Serializable]
     public class MeshMetadata {
         public int instanceId = -1;

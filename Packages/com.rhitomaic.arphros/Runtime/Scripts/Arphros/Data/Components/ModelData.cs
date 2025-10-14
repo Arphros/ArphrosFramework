@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ArphrosFramework {
+namespace ArphrosFramework.Data {
     [Serializable]
     public class ModelData {
         public int meshId;

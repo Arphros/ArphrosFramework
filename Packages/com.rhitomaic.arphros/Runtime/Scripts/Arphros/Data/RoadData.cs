@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace ArphrosFramework.Level {
+namespace ArphrosFramework.Data {
     [Serializable]
     public class RoadData {
         public bool enableAnimation;
@@ -22,11 +22,4 @@ namespace ArphrosFramework.Level {
 
         public ModelData meshData;
     }
-
-    [Serializable]
-    public enum RoadRandomOptions {
-        Move,
-        Rotate,
-        Both
-    };
 }

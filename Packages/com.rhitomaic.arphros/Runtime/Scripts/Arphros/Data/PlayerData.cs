@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace ArphrosFramework {
+namespace ArphrosFramework.Data {
     [Serializable]
     public class PlayerData {
         public float speed = 12;

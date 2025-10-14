@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using ArphrosFramework.Level;
+using ArphrosFramework.Data;
 
 namespace ArphrosFramework {
     public class ModelSerializer : ObjectSerializer<ModelData> {

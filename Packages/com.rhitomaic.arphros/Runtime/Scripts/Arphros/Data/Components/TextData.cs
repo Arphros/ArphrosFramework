@@ -2,7 +2,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace ArphrosFramework {
+namespace ArphrosFramework.Data {
     [Serializable]
     public class TextData {
         public string text = "New Text";

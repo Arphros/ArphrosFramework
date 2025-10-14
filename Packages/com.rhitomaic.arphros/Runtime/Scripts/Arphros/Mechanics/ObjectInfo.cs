@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using ArphrosFramework.Level;
 using TMPro;
 using System;
+using ArphrosFramework.Data;
 // using ArphrosFramework.Scripting;
 
 namespace ArphrosFramework {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ArphrosFramework.Data;
 using UnityEngine;
 
 namespace ArphrosFramework {
@@ -13,42 +14,13 @@ namespace ArphrosFramework {
 
         #region Variables
         [Header("Properties")]
-        public TriggerType triggerType;
+        public TriggerType triggerType = TriggerType.None;
 
-        [Header("Data")]
-        public float speedData = 12;
-        public VisibilityType visibilityData = VisibilityType.Gone;
-        public TailMode clearTailData = TailMode.Clear;
-
-        // Object Targetting
-        public ObjectInfo target;
-        public bool useGroup;
-        public List<int> groups = new();
-
-        // Easing
-        public LeanTweenType ease = LeanTweenType.linear;
-        public float duration = 1;
-
-        // Code
-        // public ScriptEngine scriptEngine;
-
-        // This is the basic functions so the triggers can actually... you know... work?
-        private Action<Collider> TriggerEnter;
-        private Action<Collider> TriggerExit;
-        private new Func<string> Serialize;
-        private new Action<string> Deserialize;
-        private Action Cancel;
-        private List<LTDescr> tweens = new();
-
-        private static ArphrosCameraType levelCameraType =>
-            LevelManager.Instance.cameraType;
-
-        // Tweens
-        static LTDescr[] fogTween = new LTDescr[2];
-        static LTDescr[] environmentTween = new LTDescr[2];
-        private bool quickMode;
+        [Header("States")]
+        public List<LTDescr> tweens = new();
+        internal bool quickMode;
         #endregion
-        
+
         #region Tween Compact
         public LTDescr TweenVector3(Vector3 start, Vector3 end, float duration, LeanTweenType ease, Action<Vector3> update) {
             var tween = LeanTween.value(gameObject, start, end, duration).setEase(ease).setOnUpdate(update);
@@ -88,7 +60,7 @@ namespace ArphrosFramework {
 
     #region Enums
     public enum TriggerType {
-        // Finished
+        // v2
         Camera,
         Jump,
         Speed,
@@ -116,7 +88,7 @@ namespace ArphrosFramework {
         Fog,
         Light,
 
-        // New
+        // New: Put new triggers here for compatibility purposes
         Gravity,
         Tap,
         None = 128

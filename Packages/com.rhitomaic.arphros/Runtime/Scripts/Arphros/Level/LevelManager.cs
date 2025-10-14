@@ -1,3 +1,4 @@
+using ArphrosFramework.Data;
 using Cysharp.Threading.Tasks;
 using System;
 using TMPro;
@@ -79,7 +80,7 @@ namespace ArphrosFramework {
         public float spawnDistance = 5;
 
         [Header("Level States")]
-        public ArphrosCameraType cameraType;
+        public ArphrosCameraType cameraType = ArphrosCameraType.StableCamera;
 
         [Header("Layers")]
         [Layer]

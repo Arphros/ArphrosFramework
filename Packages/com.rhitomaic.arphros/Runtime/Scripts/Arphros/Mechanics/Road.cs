@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using ArphrosFramework.Data;
 using UnityEngine;
-using ArphrosFramework.Level;
 using Random = UnityEngine.Random;
 
 namespace ArphrosFramework {

@@ -1,12 +1,9 @@
 ﻿using System;
-using System.IO;
-using System.Text;
-using System.Security.Cryptography;
 using System.Collections.Generic;
 
 using UnityEngine;
 
-namespace ArphrosFramework {
+namespace ArphrosFramework.Data {
     /// <summary>
     /// .arproj
     /// </summary>

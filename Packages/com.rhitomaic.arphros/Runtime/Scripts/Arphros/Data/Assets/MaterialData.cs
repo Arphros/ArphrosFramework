@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace ArphrosFramework {
+namespace ArphrosFramework.Data {
     // TODO: Properly reimplement this when the assets system is reworked
     [Serializable]
     public class MaterialData {

@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-
+using ArphrosFramework.Data;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
