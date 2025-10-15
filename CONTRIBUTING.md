@@ -13,8 +13,7 @@ We encourage meaningful, respectful collaboration. Contributions should align wi
 
 ## Licensing Agreement
 
-IN REVISION
+This project is licensed under the [MIT License](https://opensource.org/license/mit).
 
-This is a **source-available** project — not open-source (yet).
-
-We deeply appreciate your help on Arphros' Framework!
+By contributing to Arphros, you agree that your contributions will be licensed under the same MIT License.
+We deeply appreciate your time, effort, and support in improving the Arphros Framework!

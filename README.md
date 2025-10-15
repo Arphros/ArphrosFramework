@@ -9,7 +9,7 @@ You won't see much even if you cloned it, we'll be building this out when we hav
 
 ## Current plan
 
-We plan on adding a few modes for the new Arphros, the legacy mode basically being "Dancing Line" will no longer be our main focus. Adding a new twist to it so that we can at least make this sustainable or profitable for ourselves (We haven't gotten any money or donation yet from this game that could sufficiently back up the cost of the maintenance of the game).
+We plan on adding a few modes for the new Arphros, the legacy mode basically being "Dancing Line" will (hopefully) no longer be our main focus. Adding a new twist to it.
 
 [Contact us (Discord)](https://arphros.kjn.in.th/discord) if you have any suggestion, feedback, or additional ideas that you think might be cool to include in this new version!
 
@@ -20,8 +20,8 @@ We plan on adding a few modes for the new Arphros, the legacy mode basically bei
 
 ## License
 
-This project is **source-available**, not open-source.
+This project is licensed under the [MIT License](https://opensource.org/license/mit).
 
-IN REVISION
+You are free to use, modify, and distribute this software, provided that proper attribution is given and a copy of the MIT License is included with all copies or substantial portions of the software.
 
-We aim to make Arphros fully open-source once the project is sustainable and stable for long-term community development.
+See the [LICENSE](LICENSE.md)
