@@ -1,10 +1,6 @@
 # Contributing to Arphros Framework
 
-We welcome contributions that help improve gameplay, performance, stability, and tools. Specifically:
-- 🐞 Bug fixes
-- ⚙️ Performance optimizations
-- 🎮 New gameplay features or editor improvements
-- 🧰 Development tools or workflows
+We welcome contributions that help improve gameplay, performance, stability, and tools.
 
 ## How to Contribute
 
@@ -17,15 +13,7 @@ We encourage meaningful, respectful collaboration. Contributions should align wi
 
 ## Licensing Agreement
 
-By contributing to Arphros Framework, you agree that:
-- Your contributions fall under the same **Business Source License 1.1**
-- If and when the project becomes open-source, your contributions will be relicensed — by default under the **MIT License**, or possibly under the **Apache 2.0** or **GPLv3** license at the developer's discretion.
-
-## Please do NOT:
-
-🚫 Redistribute this code outside this repository  
-🚫 Create derivative or forked games using this codebase  
-🚫 Modify and publish this game under a different name
+IN REVISION
 
 This is a **source-available** project — not open-source (yet).
 
