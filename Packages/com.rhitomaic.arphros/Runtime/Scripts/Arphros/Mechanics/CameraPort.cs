@@ -20,7 +20,7 @@ namespace ArphrosFramework {
         }
 
         public void StayInPosition() {
-            switch (LevelManager.Instance.cameraType) {
+            switch (References.Manager.cameraType) {
                 case ArphrosCameraType.StableCamera:
                     movement.StayInPosition();
                     break;
@@ -34,7 +34,7 @@ namespace ArphrosFramework {
         }
 
         public void SetActiveCamera(bool to) {
-            switch (LevelManager.Instance.cameraType) {
+            switch (References.Manager.cameraType) {
                 case ArphrosCameraType.StableCamera:
                     movement.enabled = to;
                     weirdController.enabled = false;

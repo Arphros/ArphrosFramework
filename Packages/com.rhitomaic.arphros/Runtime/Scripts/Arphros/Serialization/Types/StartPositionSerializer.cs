@@ -21,7 +21,7 @@ namespace ArphrosFramework
             if (obj != null) return;
 
             var billboard = new GameObject("Billboard");
-            billboard.AddOrGetComponent<SpriteRenderer>().sprite = LevelManager.Instance.startPosSprite;
+            billboard.AddOrGetComponent<SpriteRenderer>().sprite = References.Manager.startPosSprite;
             // TODO: Reimplement when billboard is available
             // billboard.AddOrGetComponent<BillboardSprite>();
             billboard.transform.SetParent(transform, false);

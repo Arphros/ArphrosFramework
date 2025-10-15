@@ -144,8 +144,8 @@ namespace ArphrosFramework.Data {
         public Color ambientColor = Color.white;
 
         public void Apply() {
-            /*LevelManager.Instance.ChangeSkybox(skybox);
-            LevelManager.Instance.ChangeBackgroundColor(backgroundColor);
+            /*References.Manager.ChangeSkybox(skybox);
+            References.Manager.ChangeBackgroundColor(backgroundColor);
             References.Editor.ChangeFogState(enableFog);
             RenderSettings.fogDensity = fogDensity;
             RenderSettings.fogColor = fogColor;
@@ -165,7 +165,7 @@ namespace ArphrosFramework.Data {
         }
 
         public static EnvironmentData Get() {
-            var env = LevelManager.Instance.levelInfo.environment;
+            var env = References.Manager.levelInfo.environment;
             var data = new EnvironmentData() {
                 skybox = env.skybox,
                 // backgroundColor = LevelManager.GetBackgroundColor(),

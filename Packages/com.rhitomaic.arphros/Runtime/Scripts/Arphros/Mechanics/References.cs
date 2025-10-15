@@ -6,6 +6,7 @@ namespace ArphrosFramework
     public class References : MonoBehaviour
     {
         private static References _Instance;
+        public static bool AreReferencesInitialized { get; private set; }
 
         public static LevelManager Manager;
 
@@ -24,18 +25,18 @@ namespace ArphrosFramework
         public GameObject[] defaultToEnable;
 
         [Header("Game")]
-        public LevelManager manager;
+        [NotNull] public LevelManager manager;
 
-        [Header("Game Objects")] 
-        public Transform porter;
-        public Light directionalLight;
-        public CameraPort camPort;
-        public new CameraMovement camera;
-        public V1CameraMovement weirdCamera;
-        public CTTSCameraMovement oldCamera;
-        public Camera mainCamera;
-        public PlayerMovement player;
-        public AudioMixerGroup buttonMixerGroup;
+        [Header("Game Objects")]
+        [NotNull] public Transform porter;
+        [NotNull] public Light directionalLight;
+        [NotNull] public CameraPort camPort;
+        [NotNull] public new CameraMovement camera;
+        [NotNull] public V1CameraMovement weirdCamera;
+        [NotNull] public CTTSCameraMovement oldCamera;
+        [NotNull] public Camera mainCamera;
+        [NotNull] public PlayerMovement player;
+        [NotNull] public AudioMixerGroup buttonMixerGroup;
 
         private void Awake()
         {
@@ -46,10 +47,17 @@ namespace ArphrosFramework
                 obj.SetActive(false);
             foreach (var obj in defaultToEnable)
                 obj.SetActive(true);
+
+            AreReferencesInitialized = true;
         }
 
         private void OnDestroy()
         {
+            Clear();
+        }
+
+        public static void Clear() {
+            AreReferencesInitialized = false;
             _Instance = null;
             Manager = null;
 
@@ -67,6 +75,10 @@ namespace ArphrosFramework
 
         private void AssignAllAsStatic()
         {
+            _Instance = this;
+
+            Manager = manager;
+
             Porter = porter;
             CamPort = camPort;
             Camera = camera;

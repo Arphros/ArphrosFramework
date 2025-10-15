@@ -9,8 +9,6 @@ namespace ArphrosFramework {
     /// Manages the whole level basically, loading objects, creating objects, fixing objects, references, etc.
     /// </summary>
     public class LevelManager : InstanceManager<ObjectInfo> {
-        public static LevelManager Instance;
-
         public static Playmode playmode = Playmode.Stopped;
         /// <summary>
         /// This marks if Time.timeScale is actually set to 0 instead of the game being paused while time scale is unchanged
@@ -24,7 +22,6 @@ namespace ArphrosFramework {
 
         [Header("Reference")]
         public GameObject game;
-        public PlayerMovement player;
         public AudioClip defaultMusic;
 
         [Header("Info")]
@@ -108,15 +105,10 @@ namespace ArphrosFramework {
         private bool _firstProject = true;
 #pragma warning restore IDE0044 // Add readonly modifier
 
-        private void Awake() {
-            Instance = this;
-        }
-
         /// <summary>
         /// Called before project loads
         /// </summary>
         public void Initialize(bool refuseBreaking = false) {
-            Instance = this;
             ClearDictionary();
 
             int len = standardTransform.childCount;
@@ -176,11 +168,6 @@ namespace ArphrosFramework {
             } catch (Exception e) {
                 Debug.LogException(e);
             }
-        }
-
-        private void OnDestroy() {
-            if (Instance == this)
-                Instance = null;
         }
     }
 

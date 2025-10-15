@@ -198,16 +198,16 @@ namespace ArphrosFramework {
             {
                 case ObjectType.Player:
                     serializer = GetComponent<PlayerMovement>();
-                    gameObject.layer = LevelManager.Instance.playerLayer;
+                    gameObject.layer = References.Manager.playerLayer;
                     break;
                 case ObjectType.MainCamera:
                     serializer = GetComponent<CameraSerializer>();
-                    gameObject.layer = LevelManager.Instance.passthroughLayer;
+                    gameObject.layer = References.Manager.passthroughLayer;
                     break;
                 case ObjectType.Light:
                     serializer = gameObject.AddOrGetComponent<LightSerializer>();
                     gameObject.tag = "Light";
-                    gameObject.layer = LevelManager.Instance.passthroughLayer;
+                    gameObject.layer = References.Manager.passthroughLayer;
                     break;
                 case ObjectType.Primitive:
                     serializer = gameObject.AddOrGetComponent<PrimitiveSerializer>();
@@ -218,12 +218,12 @@ namespace ArphrosFramework {
                 case ObjectType.Trigger:
                     serializer = gameObject.AddOrGetComponent<Trigger>();
                     gameObject.tag = "Trigger";
-                    gameObject.layer = LevelManager.Instance.triggerLayer;
+                    gameObject.layer = References.Manager.triggerLayer;
                     break;
                 case ObjectType.Road:
                     serializer = gameObject.AddOrGetComponent<Road>();
                     gameObject.AddOrGetComponent<BoxCollider>();
-                    gameObject.layer = LevelManager.Instance.passthroughLayer;
+                    gameObject.layer = References.Manager.passthroughLayer;
                     break;
                 case ObjectType.Sprite:
                     var spriteSer = gameObject.AddOrGetComponent<SpriteSerializer>();
@@ -240,14 +240,14 @@ namespace ArphrosFramework {
                     gameObject.AddOrGetComponent<MeshRenderer>();
                     texSerializer.renderer = gameObject.AddOrGetComponent<TextMeshPro>();
                     gameObject.AddOrGetComponent<BoxCollider>().isTrigger = true;
-                    gameObject.layer = LevelManager.Instance.passthroughLayer;
+                    gameObject.layer = References.Manager.passthroughLayer;
                     break;
                 case ObjectType.StartPos:
                     var startPos = gameObject.AddOrGetComponent<StartPositionSerializer>();
                     gameObject.AddOrGetComponent<BoxCollider>().isTrigger = true;
                     serializer = startPos;
                     gameObject.tag = "StartPosition";
-                    gameObject.layer = LevelManager.Instance.passthroughLayer;
+                    gameObject.layer = References.Manager.passthroughLayer;
                     break;
             }
 
@@ -299,8 +299,8 @@ namespace ArphrosFramework {
 
             transform.SetParent(
                 spaceType == SpaceType.Screen
-                    ? LevelManager.Instance.screenTransform
-                    : LevelManager.Instance.environmentTransform, false);
+                    ? References.Manager.screenTransform
+                    : References.Manager.environmentTransform, false);
         }
 
         public void AdjustParentType()
@@ -314,7 +314,7 @@ namespace ArphrosFramework {
             if (pInfo)
                 spaceType = pInfo.spaceType;
             else
-                spaceType = parent == LevelManager.Instance.screenTransform ? SpaceType.Screen : SpaceType.World;
+                spaceType = parent == References.Manager.screenTransform ? SpaceType.Screen : SpaceType.World;
 
             // TODO: Decide if we want to keep this behavior
             /*if (previousSpaceType != spaceType)
@@ -339,7 +339,7 @@ namespace ArphrosFramework {
             if (currentCollider)
             {
                 CarefullySetIsTrigger(currentCollider, !to);
-                gameObject.layer = to ? LevelManager.Instance.normalLayer : LevelManager.Instance.passthroughLayer;
+                gameObject.layer = to ? References.Manager.normalLayer : References.Manager.passthroughLayer;
             }
             serializer.OnCollidableChanged(to);
         }
@@ -358,28 +358,28 @@ namespace ArphrosFramework {
                     var currentCollider = GetComponent<Collider>();
                     CarefullySetIsTrigger(currentCollider, false);
                     if (currentCollider) currentCollider.isTrigger = false;
-                    gameObject.layer = LevelManager.Instance.normalLayer;
+                    gameObject.layer = References.Manager.normalLayer;
                     SetCollideMode(true);
                     break;
                 case ObstacleType.Wall:
                     tag = "Obstacle-Wall";
                     currentCollider = GetComponent<Collider>();
                     CarefullySetIsTrigger(currentCollider, false);
-                    gameObject.layer = LevelManager.Instance.normalLayer;
+                    gameObject.layer = References.Manager.normalLayer;
                     SetCollideMode(true);
                     break;
                 case ObstacleType.PassThrough:
                     tag = "Obstacle-Float";
                     currentCollider = GetComponent<Collider>();
                     CarefullySetIsTrigger(currentCollider, true);
-                    gameObject.layer = LevelManager.Instance.floatingObstacleLayer;
+                    gameObject.layer = References.Manager.floatingObstacleLayer;
                     SetCollideMode(false);
                     break;
                 default:
                     tag = "Obstacle-Water";
                     currentCollider = GetComponent<Collider>();
                     CarefullySetIsTrigger(currentCollider, true);
-                    gameObject.layer = LevelManager.Instance.floatingObstacleLayer;
+                    gameObject.layer = References.Manager.floatingObstacleLayer;
                     SetCollideMode(false);
                     break;
             }
@@ -426,7 +426,7 @@ namespace ArphrosFramework {
                         meshCollider.isTrigger = true;
 
                         // HACK: Very weird workaround for PhysX support with non-convex isTrigger collision
-                        // collision.gameObject.GetComponent<Rigidbody>().linearVelocity = LevelManager.Instance.player.previousVelocity;
+                        // collision.gameObject.GetComponent<Rigidbody>().linearVelocity = References.Manager.player.previousVelocity;
                     }
                 }
             }

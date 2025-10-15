@@ -9,7 +9,7 @@ namespace ArphrosFramework
         public override void OnDeserialized(CameraData obj)
         {
             var camera = GetComponent<CameraPort>().movement;
-            obj.targetId.AsObject(val => camera.target = val.transform, LevelManager.Instance.player.GetInfo());
+            obj.targetId.AsObject(val => camera.target = val.transform, References.Player.GetInfo());
             camera.pivotOffset = obj.pivotOffset;
             camera.targetRotation = obj.targetRotation;
             camera.targetDistance = obj.targetDistance;
@@ -48,8 +48,7 @@ namespace ArphrosFramework
             if (wasPaused) return;
             
             var glitch = GetComponent<Kino.AnalogGlitch>();
-            // TODO: Why have I not made the References class already?
-            // fov = References.MainCamera.fieldOfView;
+            fov = References.MainCamera.fieldOfView;
             scj = glitch.scanLineJitter;
             vj = glitch.verticalJump;
             hs = glitch.horizontalShake;
@@ -67,8 +66,7 @@ namespace ArphrosFramework
             if (!wasTouched) return;
             var glitch = GetComponent<Kino.AnalogGlitch>();
 
-            // TODO: Why have I not made the References class already?
-            // References.MainCamera.fieldOfView = fov;
+            References.MainCamera.fieldOfView = fov;
             glitch.scanLineJitter = scj;
             glitch.verticalJump = vj;
             glitch.horizontalShake = hs;
@@ -86,10 +84,9 @@ namespace ArphrosFramework
         }
 
         public override Action<ObjectInfo> GetRestoreReference(ObjectInfo info) {
-            // TODO: Why have I not made the References class already?
-            /*if (References.Camera.target == info.transform) {
+            if (References.Camera.target == info.transform) {
                 return obj => References.Camera.target = obj.transform;
-            }*/
+            }
             return null;
         }
     }

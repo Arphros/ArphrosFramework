@@ -14,7 +14,7 @@ namespace ArphrosFramework
 
         public override void OnTriggerEnter(Collider other)
         {
-            if (LevelManager.Instance.cameraType != ArphrosCameraType.StableCamera)
+            if (References.Manager.cameraType != ArphrosCameraType.StableCamera)
             {
                 // TODO: Make a toast/level error when people put this trigger in an incompatible level
                 Debug.LogWarning("This camera trigger is not supported in this level!");

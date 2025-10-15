@@ -14,7 +14,7 @@ namespace ArphrosFramework
             renderer = GetComponent<TextMeshPro>();
             collider = GetComponent<BoxCollider>();
             renderer.text = obj.text;
-            renderer.font = LevelManager.Instance.fonts[obj.fontIndex];
+            renderer.font = References.Manager.fonts[obj.fontIndex];
             renderer.fontSize = obj.fontSize;
             renderer.color = obj.color;
             renderer.horizontalAlignment = obj.horizontalAlignment;
@@ -53,13 +53,13 @@ namespace ArphrosFramework
 
         public static Material RefogMaterial(Material material)
         {
-            var newMaterial = new Material(material) { shader = LevelManager.Instance.foggedTextShader };
+            var newMaterial = new Material(material) { shader = References.Manager.foggedTextShader };
             return newMaterial;
         }
 
         private int GetFontIndex(TMP_FontAsset source)
         {
-            var fonts = LevelManager.Instance.fonts;
+            var fonts = References.Manager.fonts;
             for (int i = 0; i < fonts.Length; i++)
             {
                 if (fonts[i] == source)

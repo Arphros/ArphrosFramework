@@ -93,7 +93,7 @@ namespace ArphrosFramework {
         private List<LTDescr> tweens = new();
 
         private void Start() {
-            movement = LevelManager.Instance.player;
+            movement = References.Player;
         }
 
         void Update() {
@@ -105,14 +105,14 @@ namespace ArphrosFramework {
                 positionReference = transform.position;
 
             if (mode == StartMode.ByDistance) {
-                if (Vector3.Distance(positionReference, LevelManager.Instance.player.transform.position) <= distanceMinimum)
+                if (Vector3.Distance(positionReference, References.Player.transform.position) <= distanceMinimum)
                     OnAnimationTriggered();
             }
             else if (mode == StartMode.ByTime) {
                 // TODO: Add offset support
-                /*if (LevelManager.Instance.player.source.time + References.GameManager.totalOffset >= timeMinimum)
+                /*if (References.Player.source.time + References.GameManager.totalOffset >= timeMinimum)
                     OnAnimationTriggered();*/
-                if (LevelManager.Instance.player.audioSource.time >= timeMinimum)
+                if (References.Player.audioSource.time >= timeMinimum)
                     OnAnimationTriggered();
             }
         }

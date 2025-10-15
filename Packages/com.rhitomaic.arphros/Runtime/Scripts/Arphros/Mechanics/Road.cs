@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 namespace ArphrosFramework {
     public class Road : ObjectSerializer<RoadData> {
-        private float DistanceFromPlayer => basedOnOrigin ? Vector3.Distance(LevelManager.Instance.player.transform.position, _initialPosition) : Vector3.Distance(LevelManager.Instance.player.transform.position, transform.position);
+        private float DistanceFromPlayer => basedOnOrigin ? Vector3.Distance(References.Player.transform.position, _initialPosition) : Vector3.Distance(References.Player.transform.position, transform.position);
 
         [Header("Animated")]
         public GameObject invisibleRoad;
@@ -121,7 +121,7 @@ namespace ArphrosFramework {
         }
 
         public override void OnDeserialized(RoadData obj) {
-            gameObject.layer = LevelManager.Instance.passthroughLayer;
+            gameObject.layer = References.Manager.passthroughLayer;
             Decompile(obj);
             ModelSerializer.ApplyMeshData(gameObject, obj.meshData, false);
         }
@@ -164,13 +164,13 @@ namespace ArphrosFramework {
             _mainMaterial = GetComponent<MeshRenderer>().sharedMaterial;
             if (enableAnimation) {
                 GetComponent<BoxCollider>().isTrigger = true;
-                gameObject.layer = LevelManager.Instance.passthroughLayer;
+                gameObject.layer = References.Manager.passthroughLayer;
                 SpawnInvisibleCollider();
                 MoveOnStart();
             }
             else {
                 GetComponent<BoxCollider>().isTrigger = !info.canCollide;
-                gameObject.layer = LevelManager.Instance.normalLayer;
+                gameObject.layer = References.Manager.normalLayer;
             }
         }
 
