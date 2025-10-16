@@ -25,7 +25,7 @@ namespace ArphrosFramework
             var targetInfo = camera.target.GetInfo();
             return new CameraData()
             {
-                targetId = targetInfo != null ? targetInfo.instanceId : 0,
+                targetId = targetInfo != null ? targetInfo.GetId() : 0,
                 pivotOffset = camera.pivotOffset,
                 targetRotation = camera.targetRotation,
                 targetDistance = camera.targetDistance,

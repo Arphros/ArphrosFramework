@@ -430,7 +430,7 @@ namespace ArphrosFramework {
         public static string Pack(this List<int> value) =>
             value == null ? "" : string.Join(", ", value);
         public static string Pack(this ObjectInfo value) =>
-            value != null ? value.instanceId.Pack() : "-1";
+            value != null ? value.GetId().Pack() : "-1";
 
         // TODO: Implement this too when the material system is implemented
         /*public static string Pack(this Material value) => 

@@ -8,7 +8,7 @@ using ArphrosFramework.Data;
 namespace ArphrosFramework {
     // TODO: Add scripting support again
     public class ObjectInfo : MonoBehaviour, InstanceableObject {
-        public int instanceId;
+        private int instanceId;
         public int GetId() => instanceId;
         public void SetId(int id) => instanceId = id;
 
@@ -194,6 +194,7 @@ namespace ArphrosFramework {
                 state = ObjectLevel.Project;
             Initialize();
 
+            // TODO: You're supposed to handle this in the serializer, not here
             switch (type)
             {
                 case ObjectType.Player:
@@ -261,6 +262,7 @@ namespace ArphrosFramework {
                 animatable.Deserialize(objData.animatable);
             }
 
+            // TODO: Handle this in the serializer as well
             switch (type)
             {
                 case ObjectType.Primitive:
@@ -426,7 +428,7 @@ namespace ArphrosFramework {
                         meshCollider.isTrigger = true;
 
                         // HACK: Very weird workaround for PhysX support with non-convex isTrigger collision
-                        // collision.gameObject.GetComponent<Rigidbody>().linearVelocity = References.Manager.player.previousVelocity;
+                        References.Player.rigidbody.linearVelocity = References.Player.previousVelocity;
                     }
                 }
             }

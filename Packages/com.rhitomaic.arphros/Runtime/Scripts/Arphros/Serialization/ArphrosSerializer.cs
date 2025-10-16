@@ -138,7 +138,7 @@ namespace ArphrosFramework {
             public override void WriteJson(JsonWriter writer, ObjectInfo value, JsonSerializer serializer) {
                 var jo = new JObject
                 {
-                    { "id", value.instanceId },
+                    { "id", value.GetId() },
                     { "name", value.name }
                 };
                 jo.WriteTo(writer);
@@ -162,7 +162,7 @@ namespace ArphrosFramework {
                 var info = value.GetInfo();
                 var jo = new JObject
                 {
-                    { "id",  info ? info.instanceId : -2 },
+                    { "id",  info ? info.GetId() : -2 },
                     { "type", value.GetType().FullName }
                 };
                 jo.WriteTo(writer);
@@ -183,7 +183,7 @@ namespace ArphrosFramework {
                 var info = value.GetInfo();
                 var jo = new JObject
                 {
-                    { "id",  info ? info.instanceId : -2 }
+                    { "id",  info ? info.GetId() : -2 }
                 };
                 jo.WriteTo(writer);
             }
