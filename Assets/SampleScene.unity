@@ -355,7 +355,7 @@ MonoBehaviour:
   noControlRequest: 0
   tailType: 1
   funkyTail: 0
-  speed: 15
+  speed: 18
   minimumTimeForParticle: 0.1
   groundLayers:
     serializedVersion: 2
@@ -366,7 +366,7 @@ MonoBehaviour:
   restartKey: 27
   keys: 4301000020000000110100006a0000006b000000
   specialKeys: 17000000
-  usePhysicsReading: 1
+  usePhysicsReading: 0
   disableDistanceCheck: 1
   turn1: {x: 0, y: 90, z: 0}
   turn2: {x: 0, y: 0, z: 0}
@@ -1058,7 +1058,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 911316830}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.3314136, y: 0.46193975, z: -0.19134173, w: 0.8001031}
+  m_LocalRotation: {x: 0.3535534, y: 0.3535534, z: -0.14644663, w: 0.85355335}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1081,9 +1081,9 @@ MonoBehaviour:
   target: {fileID: 182459566}
   mainCamera: {fileID: 963194227}
   pivotOffset: {x: 0, y: 0, z: 0}
-  targetRotation: {x: 45, y: 60, z: 0}
-  targetDistance: 20
-  smoothFactor: 1
+  targetRotation: {x: 45, y: 45, z: 0}
+  targetDistance: 25
+  smoothFactor: 2
   localPositionOffset: {x: 0, y: 0, z: 0}
   localEulerOffset: {x: 0, y: 0, z: 0}
   shakeType: 0
@@ -1095,6 +1095,7 @@ MonoBehaviour:
     distance: 40
     smoothing: 1
     rotationSmoothing: 1
+  processInPhysics: 0
   simulateInEditor: 1
   cameraTransform: {fileID: 963194231}
 --- !u!114 &911316834
@@ -1232,7 +1233,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -20}
+  m_LocalPosition: {x: 0, y: 0, z: -25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

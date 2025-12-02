@@ -26,6 +26,7 @@ namespace ArphrosFramework {
         public CameraValues oldValues = new();
 
         [Header("Misc")]
+        public bool processInPhysics = true;
         public bool simulateInEditor = true;
 
         public TransformPort cameraTransform;
@@ -51,12 +52,19 @@ namespace ArphrosFramework {
                 return;
 
             if (Application.isPlaying) {
-                Process(false);
+                if (!processInPhysics)
+                    Process(false);
             }
             else {
                 if (simulateInEditor)
                     Process(true);
             }
+        }
+
+        private void FixedUpdate()
+        {
+            if (processInPhysics)
+                Process(false);
         }
 
         public override Camera GetMainCamera() => mainCamera;
