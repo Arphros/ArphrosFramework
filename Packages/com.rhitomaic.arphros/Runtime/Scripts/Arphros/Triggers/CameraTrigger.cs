@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace ArphrosFramework
+namespace ArphrosFramework.Triggers
 {
     public class CameraTrigger : TriggerBehavior
     {
@@ -99,6 +99,8 @@ namespace ArphrosFramework
                 split[12].AsObject(val => target = val);
         }
 
+        public override void OnCloned(ITriggerBehavior original) => data = data.Clone();
+
         [Serializable]
         public class Data
         {
@@ -114,10 +116,7 @@ namespace ArphrosFramework
             public bool bTarget;
             public bool followImmediate;
 
-            public Data Clone()
-            {
-                return CloneObject(this);
-            }
+            public Data Clone() => CloneObject(this);
         }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using ArphrosFramework.Data;
 using UnityEngine;
+
+using ArphrosFramework.Data;
+using ArphrosFramework.Triggers;
 
 namespace ArphrosFramework {
 
@@ -40,6 +42,15 @@ namespace ArphrosFramework {
             behavior?.Deserialize(obj.data);
         }
 
+        public override void OnCloned(ObjectInfo original)
+        {
+            if (behavior != null && original.serializer is Trigger trigger)
+            {
+                if (trigger.behavior != null)
+                    behavior.OnCloned(trigger.behavior);
+            }
+        }
+
         public void ChangeType(TriggerType type)
         {
             triggerType = type;
@@ -49,6 +60,20 @@ namespace ArphrosFramework {
         [Header("States")]
         public List<LTDescr> tweens = new();
         internal bool quickMode;
+        public bool IsColliding()
+        {
+            // Get the colliders overlapping with the rotated box
+            Collider[] colliders = Physics.OverlapBox(transform.position, transform.localScale / 2, transform.rotation, LayerMask.GetMask("Player"));
+
+            // Check the colliders that are hitting the rotated box
+            foreach (Collider collider in colliders)
+            {
+                if (collider.tag == "Player")
+                    return true;
+            }
+
+            return false;
+        }
         #endregion
 
         #region Tween Compact

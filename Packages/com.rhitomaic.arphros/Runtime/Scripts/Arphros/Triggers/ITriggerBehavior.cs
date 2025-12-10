@@ -22,5 +22,10 @@ namespace ArphrosFramework
         /// Applying the serialized data to the trigger type data
         /// </summary>
         void Deserialize(string data);
+
+        /// <summary>
+        /// Called when the trigger is cloned to copy the data since most of them uses class instead of struct
+        /// </summary>
+        void OnCloned(ITriggerBehavior behavior);
     }
 }

@@ -13,6 +13,7 @@ namespace ArphrosFramework
         public virtual void OnTriggerExit(Collider other) { }
         public abstract string Serialize();
         public abstract void Deserialize(string packed);
+        public virtual void OnCloned(ITriggerBehavior original) { }
 
         // Optional shared helpers (simplified)
         protected string Join(params string[] values) => string.Join("|", values);
